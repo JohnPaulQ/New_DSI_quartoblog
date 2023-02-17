@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "New_DSI_quartoblog",
+    "section": "",
+    "text": "New_DSI_quartoblog\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nFeb 10, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nFeb 7, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "The Data Science Initiative (DSI) at Chico State is a fledgling grassroots program, initiated in 2015 to develop the Data Science capabilities of our campus and community. By levering expertise across a wealth of disciplines including Statistics, Computer Science, Business, Biology, Nutrition, Mathematics and Political Science, Chico State is well poised to become an educational and workforce training leader in the North State.\nOur vision is to foster a data-empowered society working within a culture of open science."
+  },
+  {
+    "objectID": "about.html#our-mission-is-to",
+    "href": "about.html#our-mission-is-to",
+    "title": "About",
+    "section": "Our mission is to",
+    "text": "Our mission is to\n\nFoster a supportive, inclusive and diverse community for data science researchers, practitioners, learners and enthusiasts.\nProvide high quality data science education to learners from all backgrounds and domains.\nDevelop and support interdisciplinary teaching and research opportunities\nEmphasize the use of data in an accountable and transparent manner for the benefit of all persons.\nFurthering the advancement of the algorithms and scientific methods to make decisions and extract insights from data."
+  },
+  {
+    "objectID": "about.html#we-work-to-achieve-this-mission-by",
+    "href": "about.html#we-work-to-achieve-this-mission-by",
+    "title": "About",
+    "section": "We work to achieve this mission by",
+    "text": "We work to achieve this mission by\n\nBuilding relationships with community partners to build data enabled solutions and provide high impact real world learning experiences for students.\nProvide training on data privacy and security, responsible and ethical research, responsible, transparent and ethical uses of data and algorithms.\nProvide learners with the skills and knowledge, and build and confidence to develop and implement data-driven solutions in an ethically and socially responsible manner.\nUsing multiple methods of training including\nTraditional classroom and online curriculum\nWorkshops & specialized trainings\nInterdisciplinary projects that engage learners from diverse sectors\nBeing a campus wide resource through Community Coding - an open work and support session."
+  },
+  {
+    "objectID": "posts/Test_Post/index(test_post).html",
+    "href": "posts/Test_Post/index(test_post).html",
+    "title": "New_DSI_quartoblog",
+    "section": "",
+    "text": "Testing post\n\n\n\n\n\n\n\n\n\nNo matching items"
+  }
+]
