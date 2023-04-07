@@ -1,11 +1,12 @@
 [
   {
-    "listing": "/about.html",
+    "listing": "/news.html",
     "items": [
       "/posts/2023-03-09-health-equity-datathon/index.en.html",
       "/posts/2023-03-03-datafest-2023-registration-now-open/index.en.html",
       "/posts/2022-11-27-bls-open-pos/index.en.html",
       "/posts/2022-11-27-tech-justice/index.en.html",
+      "/posts/2022-10-27-fooling-facial-recognition/index.en.html",
       "/posts/2022-09-01-student-post-intro-sql/index.en.html",
       "/posts/2022-08-01-guest-post-underlying-geometry-of-data/index.en.html",
       "/posts/2022-07-17-fall-22-guest-post-series/index.en.html",

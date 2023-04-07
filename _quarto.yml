@@ -5,11 +5,10 @@ website:
   title: "Data Science Initiative"
   navbar:
     right:
-      - about.qmd
+      - news.qmd
       - icon: github
         href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+
 format:
   html:
     theme: cosmo
