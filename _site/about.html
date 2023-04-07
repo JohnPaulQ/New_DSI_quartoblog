@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>New_DSI_quartoblog - About</title>
+<title>Data Science Initiative - DSI Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,9 +30,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -57,12 +60,42 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -70,7 +103,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">New_DSI_quartoblog</span>
+    <span class="navbar-title">Data Science Initiative</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -80,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link active" href="./about.html" aria-current="page">
- <span class="menu-text">About</span></a>
+ <span class="menu-text">DSI Blog</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"><i class="bi bi-github" role="img">
@@ -99,69 +132,414 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">DSI Blog</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="event">event <span class="quarto-category-count">(2)</span></div><div class="category" data-category="learning">learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="mathematics">mathematics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="research">research <span class="quarto-category-count">(1)</span></div><div class="category" data-category="statistics">statistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="tutorial">tutorial <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<div class="quarto-about-jolla">
-  <img src="profile.jpg" class="about-image
-  round " style="height: 15em; width: 15em;">
- <header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">About</h1>
-</div>
-<div class="quarto-title-meta">
-  </div>
-</header><main class="content" id="quarto-document-content">
-<section id="about-the-dsi" class="level2">
-<h2 data-anchor-id="about-the-dsi">About the DSI</h2>
-<p>The Data Science Initiative (DSI) at Chico State is a fledgling grassroots program, initiated in 2015 to develop the Data Science capabilities of our campus and community. By levering expertise across a wealth of disciplines including Statistics, Computer Science, Business, Biology, Nutrition, Mathematics and Political Science, Chico State is well poised to become an educational and workforce training leader in the North State.</p>
-<p>Our <strong>vision</strong> is to foster a data-empowered society working within a culture of open science.&nbsp;</p>
-</section>
-<section id="our-mission-is-to" class="level2">
-<h2 data-anchor-id="our-mission-is-to">Our mission is to</h2>
-<ul>
-<li><p>Foster a supportive, inclusive and diverse community for data science researchers, practitioners, learners and enthusiasts.</p></li>
-<li><p>Provide high quality data science education to learners from all backgrounds and domains.</p></li>
-<li><p>Develop and support interdisciplinary teaching and research opportunities</p></li>
-<li><p>Emphasize the use of data in an accountable and transparent manner for the benefit of all persons.</p></li>
-<li><p>Furthering the advancement of the algorithms and scientific methods to make decisions and extract insights from data.&nbsp;</p></li>
-</ul>
-</section>
-<section id="we-work-to-achieve-this-mission-by" class="level2">
-<h2 data-anchor-id="we-work-to-achieve-this-mission-by">We work to achieve this mission by</h2>
-<ul>
-<li><p>Building relationships with community partners to build data enabled solutions and provide high impact real world learning experiences for students.</p></li>
-<li><p>Provide training on data privacy and security, responsible and ethical research, responsible, transparent and ethical uses of data and algorithms.</p></li>
-<li><p>Provide learners with the skills and knowledge, and build and confidence to develop and implement data-driven solutions in an ethically and socially responsible manner.</p></li>
-<li><p>Using multiple methods of training including</p></li>
-<li><p>Traditional classroom and online curriculum</p></li>
-<li><p>Workshops &amp; specialized trainings</p></li>
-<li><p>Interdisciplinary projects that engage learners from diverse sectors</p></li>
-<li><p>Being a campus wide resource through Community Coding - an open work and support session.</p></li>
-</ul>
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
-</section>
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="https://twitter.com" class="about-link">
-    <i class="bi bi-twitter"></i>
-     <span class="about-link-text">Twitter</span>
-  </a>
-  <a href="https://linkedin.com" class="about-link">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text">LinkedIn</span>
-  </a>
-  <a href="https://github.com" class="about-link">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
+
+
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="event" data-listing-date-sort="1678348800000" data-listing-file-modified-sort="1680845596095" data-listing-reading-time-sort="0.045">
+<div class="thumbnail">
+<p><a href="./posts/2023-03-09-health-equity-datathon/index.en.html"> <img src="./posts/2023-03-09-health-equity-datathon/HED_Info_small.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2023-03-09-health-equity-datathon/index.en.html">
+<h3 class="no-anchor listing-title">
+Health Equity Datathon
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('event'); return false;">
+event
 </div>
 </div>
- <!-- /main -->
+<a href="./posts/2023-03-09-health-equity-datathon/index.en.html">
+<div class="listing-description">
+To learn more and secure your spot &gt;&gt; CIVIC-HACKERS.ORG/HED23
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2023-03-09-health-equity-datathon/index.en.html">
+<div class="listing-date">
+Mar 9, 2023
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="event" data-listing-date-sort="1677830400000" data-listing-file-modified-sort="1680845595959" data-listing-reading-time-sort="2.975">
+<div class="thumbnail">
+<p><a href="./posts/2023-03-03-datafest-2023-registration-now-open/index.en.html"> <img src="./posts/2023-03-03-datafest-2023-registration-now-open/datafest_logo_sacstate_small.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2023-03-03-datafest-2023-registration-now-open/index.en.html">
+<h3 class="no-anchor listing-title">
+DataFest 2023 April 14-16- Registration now open!
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('event'); return false;">
+event
+</div>
+</div>
+<a href="./posts/2023-03-03-datafest-2023-registration-now-open/index.en.html">
+<div class="listing-description">
+ASA DataFest is a data hackathon for undergraduate students, sponsored by the American Statistical Association and founded at UCLA, in 2011. A data analysis problem is…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2023-03-03-datafest-2023-registration-now-open/index.en.html">
+<div class="listing-date">
+Mar 3, 2023
+</div>
+<div class="listing-author">
+Dr.&nbsp;D
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="statistics,mathematics,research" data-listing-date-sort="1669536000000" data-listing-file-modified-sort="1676668919109" data-listing-reading-time-sort="2.16">
+<div class="thumbnail">
+<a href="./posts/2022-11-27-bls-open-pos/index.en.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2022-11-27-bls-open-pos/index.en.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2022-11-27-bls-open-pos/index.en.html">
+<h3 class="no-anchor listing-title">
+Research Statistician vacancies at the Bureau of Labor Statistics
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('statistics'); return false;">
+statistics
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('mathematics'); return false;">
+mathematics
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('research'); return false;">
+research
+</div>
+</div>
+<a href="./posts/2022-11-27-bls-open-pos/index.en.html">
+<div class="listing-description">
+This is a cross-post from a recent Project-DAFANH “Ask me anything” career speaker.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022-11-27-bls-open-pos/index.en.html">
+<div class="listing-date">
+Nov 27, 2022
+</div>
+<div class="listing-author">
+Dr.&nbsp;D
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="" data-listing-date-sort="1669536000000" data-listing-file-modified-sort="1676668919115" data-listing-reading-time-sort="3.225">
+<div class="thumbnail">
+<a href="./posts/2022-11-27-tech-justice/index.en.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2022-11-27-tech-justice/index.en.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2022-11-27-tech-justice/index.en.html">
+<h3 class="no-anchor listing-title">
+Exploring Tech Justice: The Just Data Lab
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+
+</div>
+<a href="./posts/2022-11-27-tech-justice/index.en.html">
+<div class="listing-description">
+As part of the…<em></em><em></em>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022-11-27-tech-justice/index.en.html">
+<div class="listing-date">
+Nov 27, 2022
+</div>
+<div class="listing-author">
+Math 485 Student
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="tutorial" data-listing-date-sort="1662015600000" data-listing-file-modified-sort="1676668918819" data-listing-reading-time-sort="10.685">
+<div class="thumbnail">
+<p><a href="./posts/2022-09-01-student-post-intro-sql/index.en.html"> <img src="https://www.sqltutorial.org/wp-content/uploads/2016/04/SQL-Sample-Database-Schema.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2022-09-01-student-post-intro-sql/index.en.html">
+<h3 class="no-anchor listing-title">
+September Student post: Introduction to SQL
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
+tutorial
+</div>
+</div>
+<a href="./posts/2022-09-01-student-post-intro-sql/index.en.html">
+<div class="listing-description">
+This is a quick-and-dirty introduction that will explain what SQL is, how it is used, and what some SQL queries look like in R using the dplyr package. SQL…<strong></strong>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022-09-01-student-post-intro-sql/index.en.html">
+<div class="listing-date">
+Sep 1, 2022
+</div>
+<div class="listing-author">
+Joseph Shifman
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="analysis" data-listing-date-sort="1659337200000" data-listing-file-modified-sort="1676668918815" data-listing-reading-time-sort="0.64">
+<div class="thumbnail">
+<a href="./posts/2022-08-01-guest-post-underlying-geometry-of-data/index.en.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2022-08-01-guest-post-underlying-geometry-of-data/index.en.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2022-08-01-guest-post-underlying-geometry-of-data/index.en.html">
+<h3 class="no-anchor listing-title">
+August Student post: Underlying geometry of data
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('analysis'); return false;">
+analysis
+</div>
+</div>
+<a href="./posts/2022-08-01-guest-post-underlying-geometry-of-data/index.en.html">
+<div class="listing-description">
+We start our student contributed guest post series with a look at data from a topological lens. Skip Moses…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022-08-01-guest-post-underlying-geometry-of-data/index.en.html">
+<div class="listing-date">
+Aug 1, 2022
+</div>
+<div class="listing-author">
+Skip Moses
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="learning" data-listing-date-sort="1658041200000" data-listing-file-modified-sort="1676668918814" data-listing-reading-time-sort="0.6">
+<div class="thumbnail">
+<a href="./posts/2022-07-17-fall-22-guest-post-series/index.en.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2022-07-17-fall-22-guest-post-series/index.en.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2022-07-17-fall-22-guest-post-series/index.en.html">
+<h3 class="no-anchor listing-title">
+Fall 22 Guest post series
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('learning'); return false;">
+learning
+</div>
+</div>
+<a href="./posts/2022-07-17-fall-22-guest-post-series/index.en.html">
+<div class="listing-description">
+Last Spring 2022 our most recent cohort of Data Science certificate students took the Advanced Data Science course…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022-07-17-fall-22-guest-post-series/index.en.html">
+<div class="listing-date">
+Jul 17, 2022
+</div>
+<div class="listing-author">
+Dr.&nbsp;D
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="" data-listing-date-sort="1649055600000" data-listing-file-modified-sort="1676668918813" data-listing-reading-time-sort="2.255">
+<div class="thumbnail">
+<a href="./posts/2022-04-04-chico-state-data-fest-2022-recap.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2022-04-04-chico-state-data-fest-2022-recap.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2022-04-04-chico-state-data-fest-2022-recap.html">
+<h3 class="no-anchor listing-title">
+Chico State Data Fest 2022 Recap
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+
+</div>
+<a href="./posts/2022-04-04-chico-state-data-fest-2022-recap.html">
+<div class="listing-description">
+On April 1-3rd, Chico State University hosted the ASA DataFest 2022. DataFest is an event hosted by the Chico State Data Initiative (DSI), organized by Doctor Robin…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022-04-04-chico-state-data-fest-2022-recap.html">
+<div class="listing-date">
+Apr 4, 2022
+</div>
+<div class="listing-author">
+Faith F.
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="" data-listing-date-sort="1646121600000" data-listing-file-modified-sort="1676668918813" data-listing-reading-time-sort="1.98">
+<div class="thumbnail">
+<a href="./posts/2022-03-01-project-da-fanh/index.en.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/2022-03-01-project-da-fanh/index.en.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/2022-03-01-project-da-fanh/index.en.html">
+<h3 class="no-anchor listing-title">
+New grant program supports Hispanic students in Data Science enabled USDA career paths.
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+
+</div>
+<a href="./posts/2022-03-01-project-da-fanh/index.en.html">
+<div class="listing-description">
+CHICO, Calif.- California State University, Chico and California State…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2022-03-01-project-da-fanh/index.en.html">
+<div class="listing-date">
+Mar 1, 2022
+</div>
+<div class="listing-author">
+Faith F.
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="" data-listing-date-sort="1633417200000" data-listing-file-modified-sort="1676668918812" data-listing-reading-time-sort="0.515">
+<div class="thumbnail">
+<p><a href="./posts/2021-09-23-fall-data-challenge/index.en.html"> <img src="./posts/2021-09-23-fall-data-challenge/fdc_2021.jpg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/2021-09-23-fall-data-challenge/index.en.html">
+<h3 class="no-anchor listing-title">
+Using Data to Fight Food Insecurity
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+
+</div>
+<a href="./posts/2021-09-23-fall-data-challenge/index.en.html">
+<div class="listing-description">
+The Fall Data Challenge (https://thisisstatistics.org/falldatachallenge/) starts next Monday on October 11th. This is a GREAT opportunity for students to
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/2021-09-23-fall-data-challenge/index.en.html">
+<div class="listing-date">
+Oct 5, 2021
+</div>
+<div class="listing-author">
+Dr.&nbsp;D.
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -182,6 +560,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const clipboard = new window.ClipboardJS('.code-copy-button', {
     target: function(trigger) {
       return trigger.previousElementSibling;
