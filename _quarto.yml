@@ -11,8 +11,15 @@ website:
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    highlight-style: a11y
+    theme:
+      light: Chico_Light.scss
+      dark: Chico_Dark.scss
+    highlight: pygments
+    toc: true
+    code-copy: true
+    code-overflow: scroll
+    callout-icon: false
 
 editor: visual
 
