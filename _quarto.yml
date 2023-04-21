@@ -4,10 +4,19 @@ project:
 website:
   title: "Data Science Initiative"
   navbar:
+    logo: DSI_Pics/DSI_Avatar_03.ico
     right:
       - news.qmd
+      - icon: bank
+        href: https://www.csuchico.edu/datascience/mission.shtml
+      - icon: balloon
+        href: https://chicodatafest.netlify.app/
       - icon: github
-        href: https://github.com/
+        menu: 
+          - text: CSUC DSI
+            url: https://github.com/csucdsi
+          - text: Math 490
+            url: https://github.com/DATA-490        
 
 format:
   html:

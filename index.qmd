@@ -1,12 +1,13 @@
 ---
 title: "DSI"
-image: profile.jpg
+image: DSI_Pics/DSI_Avatar_03.png
 about:
   template: jolla
   links:
     - icon: github
       text: Github
-      href: https://github.com/JohnPaulQ
+      href: https://github.com/csucdsi
+      
 ---
 
 ## About the DSI
