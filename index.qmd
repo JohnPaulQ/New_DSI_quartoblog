@@ -1,13 +1,12 @@
 ---
 title: "DSI"
-image: DSI_Pics/DSI_Avatar_03.png
+image: images/DSI_Avatar_03.png
 about:
   template: jolla
   links:
     - icon: github
       text: Github
       href: https://github.com/csucdsi
-      
 ---
 
 ## About the DSI
@@ -18,33 +17,30 @@ Our **vision** is to foster a data-empowered society working within a culture of
 
 ## Our mission is to
 
-   Foster a supportive, inclusive and diverse community for data science researchers, practitioners, learners and enthusiasts.
+Foster a supportive, inclusive and diverse community for data science researchers, practitioners, learners and enthusiasts.
 
-   Provide high quality data science education to learners from all backgrounds and domains.
+Provide high quality data science education to learners from all backgrounds and domains.
 
-   Develop and support interdisciplinary teaching and research opportunities
+Develop and support interdisciplinary teaching and research opportunities
 
-   Emphasize the use of data in an accountable and transparent manner for the benefit of all persons.
+Emphasize the use of data in an accountable and transparent manner for the benefit of all persons.
 
-   Furthering the advancement of the algorithms and scientific methods to make decisions and extract insights from data.
-
+Furthering the advancement of the algorithms and scientific methods to make decisions and extract insights from data.
 
 ## We work to achieve this mission by
 
-   Building relationships with community partners to build data enabled solutions and provide high impact real world learning experiences for students.
+Building relationships with community partners to build data enabled solutions and provide high impact real world learning experiences for students.
 
-   Provide training on data privacy and security, responsible and ethical research, responsible, transparent and ethical uses of data and algorithms.
+Provide training on data privacy and security, responsible and ethical research, responsible, transparent and ethical uses of data and algorithms.
 
-   Provide learners with the skills and knowledge, and build and confidence to develop and implement data-driven solutions in an ethically and socially responsible manner.
+Provide learners with the skills and knowledge, and build and confidence to develop and implement data-driven solutions in an ethically and socially responsible manner.
 
-   Using multiple methods of training including
+Using multiple methods of training including
 
-   Traditional classroom and online curriculum
+Traditional classroom and online curriculum
 
-   Workshops & specialized trainings
+Workshops & specialized trainings
 
-   Interdisciplinary projects that engage learners from diverse sectors
+Interdisciplinary projects that engage learners from diverse sectors
 
-   Being a campus wide resource through Community Coding - an open work and support session.
-
-
+Being a campus wide resource through Community Coding - an open work and support session.
