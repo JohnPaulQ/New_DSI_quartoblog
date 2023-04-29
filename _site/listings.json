@@ -14,5 +14,11 @@
       "/posts/2022-03-01-project-da-fanh/index.en.html",
       "/posts/2021-09-23-fall-data-challenge/index.en.html"
     ]
+  },
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/template/index.en.html"
+    ]
   }
 ]

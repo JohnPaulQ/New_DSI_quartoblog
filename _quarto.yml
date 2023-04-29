@@ -5,12 +5,15 @@ website:
   title: "Data Science Initiative"
   navbar:
     logo: DSI_Pics/DSI_Avatar_03.ico
-    right:
+
+    left:
       - news.qmd
-      - icon: bank
+      - text: Mission
         href: https://www.csuchico.edu/datascience/mission.shtml
-      - icon: balloon
-        href: https://chicodatafest.netlify.app/
+      - projects.qmd
+      - text: NorCal DataFest!
+        href: https://norcaldatafest.netlify.app/
+    right: 
       - icon: github
         menu: 
           - text: CSUC DSI
