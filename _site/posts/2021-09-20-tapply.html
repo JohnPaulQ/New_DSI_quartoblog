@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Edward A. Roualdes">
+<meta name="dcterms.date" content="2021-09-20">
+
+<title>Data Science Initiative - Rs tapply() in Julia</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../DSI_Pics/DSI_Avatar_03.ico" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Data Science Initiative</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news.html">
+ <span class="menu-text">News/Events</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.csuchico.edu/datascience/mission.shtml">
+ <span class="menu-text">Mission</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html">
+ <span class="menu-text">Student Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://norcaldatafest.netlify.app/">
+ <span class="menu-text">NorCal DataFest!</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/csucdsi">
+ <span class="dropdown-text">CSUC DSI</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/DATA-490">
+ <span class="dropdown-text">Math 490</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Rs tapply() in Julia</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">learning</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Edward A. Roualdes </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 20, 2021</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#rs-tapply" id="toc-rs-tapply" class="nav-link" data-scroll-target="#rs-tapply">R’s tapply()</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
+  <li><a href="#two-examples" id="toc-two-examples" class="nav-link" data-scroll-target="#two-examples">Two Examples</a>
+  <ul class="collapse">
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a></li>
+  </ul></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
+  <li><a href="#tapply-in-julia" id="toc-tapply-in-julia" class="nav-link" data-scroll-target="#tapply-in-julia">tapply() in Julia</a>
+  <ul class="collapse">
+  <li><a href="#tabulate-values" id="toc-tabulate-values" class="nav-link" data-scroll-target="#tabulate-values">tabulate values</a></li>
+  </ul></li>
+  <li><a href="#so-what" id="toc-so-what" class="nav-link" data-scroll-target="#so-what">So What?</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="motivation" class="level1">
+<h1>Motivation</h1>
+<p>Lately, I, Edward, have been programming in <a href="https://julialang.org/">Julia</a> a lot. Two times in the last week, I’ve needed a function like R’s <code>tapply()</code>, but in Julia. With a little bit of searching around the interwebs, I hacked together a reasonable equivalent to R’s <code>tapply()</code> written in Julia. This blog post will explain the function <code>tapply()</code> and briefly introduce the two examples where I used <code>tapply()</code>. Last, I’ll provide my Julia code which replicates R’s <code>tapply()</code> function.</p>
+</section>
+<section id="rs-tapply" class="level1">
+<h1>R’s tapply()</h1>
+<p>R’s function <code>tapply()</code> is a tricky little guy, but only at first. Let’s start with just a few examples to get an understanding of the function <code>tapply()</code>.</p>
+<p>First we define a vector <code>x</code> of some made-up data and another vector <code>g</code> that assigns elements of <code>x</code> to the groups in <code>g</code>. In our first example, <code>g</code> contains five groups, <code>A, B, C, D, E</code>.</p>
+<pre><code>x &lt;- c( 1,   2,   3,   4,   5,   6,   7,   8,   9,   10)
+g &lt;- c("A", "A", "B", "B", "C", "C", "C", "D", "E", "E")</code></pre>
+<p>The first four elements of <code>x</code> are evenly split amongst the first two groups of <code>g</code>, namely groups <code>A</code> and <code>B</code>. The fifth through seventh elements of <code>x</code> belong to group <code>C</code>, while elements <code>9,10</code> belong to group <code>E</code>. Lonely element <code>8</code> belongs to its own group, <code>D</code>.</p>
+<p>Let’s see <code>tapply()</code> in action.</p>
+<pre><code>tapply(x, g, length)
+
+## A B C D E 
+## 2 2 3 1 2</code></pre>
+<p>By picking simple vectors like <code>x,g</code> and a simpler function like <code>length()</code> we can start to see what <code>tapply()</code> does. In this case, <code>tapply()</code> calculates the length all of the elements of <code>x</code> as grouped by <code>g</code>.</p>
+<p>Let’s try a more abstract phrasing: <code>tapply()</code> applies the function <code>length()</code> to the elements of <code>x</code> as grouped by <code>g</code>.</p>
+<p><code>tapply()</code> is quite general. It doesn’t only calculate lengths of grouped elements. One more step up in abstraction: <code>tapply()</code> applies a function to the elements of <code>x</code> as grouped by <code>g</code>. This arbitrary function gets passed in as the third argument to <code>tapply()</code>.</p>
+<p>Here is our last attempt at an abstract phrase to define what <code>tapply()</code> does: “Apply a function to each cell of a ragged array…”. Ok, this last one is a bit confusing because it introduces a new phrase, ragged array. In R, arrays are vectors. A ragged vector is just a (outer) vector of (inner) vectors, so a vector that holds vectors, where the inner vectors can be of different lengths. Outside of R, these are sometimes called <a href="https://en.wikipedia.org/wiki/Jagged_array">jagged arrays</a>.</p>
+<p>I put the last phrase in quotes, because I stole it directly from the help file for <code>tapply()</code>. Try <code>?tapply()</code> at the Console in R. It helps to know what <code>tapply()</code> does before reading this help file :)</p>
+<p>Let’s consider the ragged vector that is implicitly defined by <code>tapply()</code> in the case of our simpler example above. The inner vectors looks like</p>
+<pre><code>xA &lt;- c(1, 2) # the elements of x as defined by g's group A 
+xB &lt;- c(3, 4)
+xC &lt;- c(5, 6, 7)
+xD &lt;- c(8)
+xE &lt;- c(9, 10)</code></pre>
+<p>With these inner vectors, we can now “apply” the function <code>length()</code> to each.</p>
+<pre><code>length(xA)
+
+## [1] 2
+
+length(xB)
+
+## [1] 2
+
+length(xC)
+
+## [1] 3
+
+length(xD)
+
+## [1] 1
+
+length(xE)
+
+## [1] 2</code></pre>
+<p>So <code>tapply()</code> is implicitly creating a ragged vector that holds <code>xA, xB, xC, xD, xE</code>. I say implicitly here, because such a ragged vector is never realized; inside <code>tapply()</code>, <code>length()</code> is applied to each inner vector without creating the outer vector.</p>
+</section>
+<section id="practice" class="level1">
+<h1>Practice</h1>
+<p>Try replacing the function <code>length()</code> above with the function <code>sum()</code>. As a challenge, think about your answer before asking starting to type. What will the output of the following code be?</p>
+<pre><code>tapply(x, g, sum)</code></pre>
+</section>
+<section id="two-examples" class="level1">
+<h1>Two Examples</h1>
+<p>In the last week, I’ve needed a function like R’s <code>tapply()</code> while programming in Julia. The two example below are simplified versions of where this function <code>tapply()</code> showed up.</p>
+<section id="example-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-1">Example 1</h2>
+<p>In fact, the first time this came up for me was for a sub-problem that involved the practice problem above. I wanted to sum elements of a vector as grouped by another vector. My sub-problem involved groups as defined by integers instead of letters, but that’s no issue for <code>tapply()</code>.</p>
+<pre><code>h &lt;- c(1, 1, 2, 2, 3, 3, 3, 4, 5, 5)
+tapply(x, h, sum)
+
+##  1  2  3  4  5 
+##  3  7 18  8 19</code></pre>
+<p>Since this example is no different than above, I’ll provide some more details of the broader problem I was working on. While working on a non-<a href="https://en.wikipedia.org/wiki/Domain-specific_language">DSL</a> version of <a href="https://mc-stan.org/">Stan</a>, I was attempting to take a derivative of something like a <a href="https://norcalbiostat.github.io/AppliedStatistics_notes/RI.html">random effects linear model</a> with respect to the random intercept. As it turns out, such a derivative needs the sum of the intercepts as grouped by their unique ID.</p>
+</section>
+</section>
+<section id="example-2" class="level1">
+<h1>Example 2</h1>
+<p>This next example is a not obvious use-case of <code>tapply()</code>, even if the original task seemed easy. I was asked by a colleague to read through a bunch of Excel files (about 25) and print out some integers (about 17,000 integers) in a “pretty” format. For example, with the integers</p>
+<pre><code>y &lt;- c(1, 2, 3, 6, 7, 9, 10, 11, 13)</code></pre>
+<p>my colleague wanted them printed out as “1 - 3, 6, 7, 9 - 11, 13”. Essentially the task was to hyphenate consecutive integers and comma-separate everything.</p>
+<p>So here it goes, using <code>tapply()</code>. First, I define the function which will be applied to each inner vector. Notice that if my function <code>f()</code> simply returned the variable <code>l</code> then it would be equivalent to using <code>length()</code> in place of <code>f()</code>. Instead, my function <code>f()</code> returns appropriately formatted strings.</p>
+<pre><code>f &lt;- function(x) {
+  l &lt;- length(x)
+  if (l == 1) {
+    return(paste0(x))
+  } else if(l == 2) {
+    return(paste0(x[1], ", ",  x[l]))
+  } else {
+    return(paste0(x[1], " - ", x[l]))
+  }
+}
+
+groups &lt;- cumsum(c(1, diff(y) != 1))
+tapply(y, groups, f)
+
+##        1        2        3        4 
+##  "1 - 3"   "6, 7" "9 - 11"     "13"</code></pre>
+<p>So close! But let’s take a step back, because from here it’s not too bad. Consider the vector <code>groups</code>, printed alongside <code>y</code>.</p>
+<pre><code>y
+
+## [1]  1  2  3  6  7  9 10 11 13
+
+groups
+
+## [1] 1 1 1 2 2 3 3 3 4</code></pre>
+<p>Notice that it’s doing exactly what we want; defining groups by consecutive numbers: <code>1, 2, 3</code> all get assigned to group <code>1</code>, <code>6,7</code> get assigned to group <code>2</code>, <code>9,10,11</code> are assigned to <code>3</code>, and lonely <code>13</code> assigned to group <code>4</code>. How?!</p>
+<p>The function <code>diff()</code> calculates the difference between consecutive values in its argument. When applied to <code>y</code> specifically, it returns, in one vector, <code>y[2] - y[1]</code>, <code>y[3] - y[2]</code>, <code>y[4] - y[3]</code>, and so on. That’s nearly what we want, but we need to account for two extra bits.</p>
+<p>First, <code>diff()</code> alone is insufficient. We want to know, more specifically, when the differences are equal to 1, since this inherently defines consecutive integers. So <code>diff(y) != 1</code> returns a vector of <code>1</code>s and <code>0</code>s. The cumulative sum of these is nearly what we want.</p>
+<p>Second, <code>diff(y)</code> returns a vector of length <code>length(y) - 1</code> since it starts working on <code>y[2]</code>. To account for this we prepend a <code>1</code> to the <code>cumsum()</code>ed vector.</p>
+<p>Let’s store our output into a vector.</p>
+<pre><code>s &lt;- tapply(y, groups, f)</code></pre>
+<p>The vector <code>s</code> in now a vector of the strings we want.</p>
+<pre><code>s
+
+##        1        2        3        4 
+##  "1 - 3"   "6, 7" "9 - 11"     "13"</code></pre>
+<p>Since we want only one string, not a vector of strings, we combine these into a single, comma-separated string.</p>
+<pre><code>paste(s, collapse = ", ")
+
+## [1] "1 - 3, 6, 7, 9 - 11, 13"</code></pre>
+<p>For your sake, I leave out the details of repeatedly applying <code>tapply()</code> like this to some 25 Excel files. Your welcome.</p>
+</section>
+<section id="tapply-in-julia" class="level1">
+<h1>tapply() in Julia</h1>
+<p>We build up to <code>tapply()</code> by solving a number of sub-problems.</p>
+<section id="tabulate-values" class="level2">
+<h2 class="anchored" data-anchor-id="tabulate-values">tabulate values</h2>
+<p>In order to efficiently run a function like <code>tapply()</code>, I want a count of how many times each distinct value appears in a vector. R calls such a function table. Let’s first load up Julia and share with Julia some of the vectors we’ve been using in our examples.</p>
+<pre><code>library(JuliaCall)
+julia_assign("x", x)
+
+## Julia version 1.5.0 at location C:\Users\rache\AppData\Roaming\R\data\R\JULIAC~1\julia\V15~1.0\bin will be used.
+
+## Loading setup script for JuliaCall...
+
+## Finish loading setup script for JuliaCall.
+
+julia_assign("g", g)
+julia_assign("y", y)
+julia_assign("groups", groups)</code></pre>
+<p>I called my version of this function table in Julia, too. Here’s the source code, much of which I borrowed from the Julia package <a href="https://github.com/JuliaStats/StatsBase.jl">StatsBase.jl</a>,</p>
+<pre><code>function table(x::Vector)
+    d = Dict{eltype(x), Int}()
+    for v in x
+        idx = Base.ht_keyindex2!(d, v)
+        if idx &gt; 0
+            @inbounds d.vals[idx] += 1
+        else
+            @inbounds Base._setindex!(d, 1, v, -idx)
+        end
+    end
+    return d
+end
+
+## table (generic function with 1 method)</code></pre>
+<p>So now we can call our Julia function.</p>
+<pre><code>table(g)
+
+## Dict{String,Int64} with 5 entries:
+##   "B" =&gt; 2
+##   "A" =&gt; 2
+##   "C" =&gt; 3
+##   "D" =&gt; 1
+##   "E" =&gt; 2</code></pre>
+<p>Because Julia doesn’t inherently have a table type, I used a dictionary.</p>
+<p>Next, I wrote a function which I named <code>group</code>. This is equivalent to R’s <code>split()</code>. Since Julia already has a function named split, I chose a different name.</p>
+<pre><code>function group(x::Vector, g::Vector)
+    gt = eltype(g)
+    gt &lt;: Number &amp;&amp; gt != Int &amp;&amp; (g = convert.(Int, g))
+    t = table(g)
+    d = Dict(k =&gt; Vector{eltype(x)}(undef, v) for (k, v) in t)
+    ug = collect(keys(t))
+    u = gt &lt;: Number ? ug : Dict(k =&gt; i for (i, k) in pairs(ug))
+    c = zeros(Int, length(d))
+    @inbounds for i in eachindex(g, x)
+        gi = g[i]
+        ui = u[gi]
+        c[ui] += 1
+        d[gi][c[ui]] = x[i]
+    end
+    return d
+end
+
+## group (generic function with 1 method)</code></pre>
+<p>The function <code>group()</code> groups the elements of <code>x</code> into groups based on the groups defined in <code>g</code>.</p>
+<pre><code>group(x, g)
+
+## Dict{String,Array{Float64,1}} with 5 entries:
+##   "B" =&gt; [3.0, 4.0]
+##   "A" =&gt; [1.0, 2.0]
+##   "C" =&gt; [5.0, 6.0, 7.0]
+##   "D" =&gt; [8.0]
+##   "E" =&gt; [9.0, 10.0]</code></pre>
+<p>Let’s compare this to what R’s function <code>split()</code> does. The order is not the same, so take a second to convince yourself the grouped elements of <code>x</code> appropriately match.</p>
+<pre><code>split(x, g)
+
+## $A
+## [1] 1 2
+## 
+## $B
+## [1] 3 4
+## 
+## $C
+## [1] 5 6 7
+## 
+## $D
+## [1] 8
+## 
+## $E
+## [1]  9 10</code></pre>
+<p>Finally, here is an equivalent to <code>tapply()</code>, which I named <code>mapg()</code> (think map groups). I also added an option to first sort the groups in <code>g</code>, just in case that proves helpful (which it did, in the details of the second example). Notice that I changed the order of the arguments to better match the order of the arguments to Julia’s function <code>map()</code>, namely the function to be applied to the groups comes first.</p>
+<pre><code>function mapg(f, x, g; sortfirst = false)
+    v = collect(group(x, g))
+    z = sortfirst ? sort(v, by = x -&gt; first(x)) : v
+    return map(y -&gt; f(last(y)), z)
+end
+
+## mapg (generic function with 1 method)</code></pre>
+<p>Let’s use <code>mapg()</code> to print out some integers in a “pretty” format.</p>
+<pre><code>function f(x)
+  lx = length(x)
+  out = ""
+  if lx == 1
+    out *= "$(x[1])"
+  else
+    out *= lx == 2 ? "$(x[1]), $(x[2])" : "$(x[1]) - $(x[end])"
+  end
+  return out
+end
+
+## f (generic function with 1 method)
+
+
+s = mapg(f, y, groups, sortfirst = true)
+
+## 4-element Array{String,1}:
+##  "1.0 - 3.0"
+##  "6.0, 7.0"
+##  "9.0 - 11.0"
+##  "13.0"
+
+join(s, ", ")
+
+## "1.0 - 3.0, 6.0, 7.0, 9.0 - 11.0, 13.0"</code></pre>
+<p>If you are following along, try calling <code>mapg()</code> without the <code>sortfirst = true</code> argument to better understand how sorting helps.</p>
+</section>
+</section>
+<section id="so-what" class="level1">
+<h1>So What?</h1>
+<p>Well, I certainly learned some more about Julia by writing the function <code>mapg()</code>. And I certainly merged some relatively different problems down to one function, that’s always fun! But moreover, R’s function <code>tapply()</code> is a classic example of the <a href="https://thebottomline.as.ucsb.edu/2018/10/julia-a-solution-to-the-two-language-programming-problem">two language problem</a>; <code>tapply()</code> uses some underlying functions which are written in C, <code>factor()</code> and <code>split()</code> (possibly others). While my function <code>mapg()</code> might not be the fastest re-writing of <code>tapply()</code> that is possible in Julia, it is still fast. Recall, <code>tapply()</code> does most of the heavy lifting in C.</p>
+<p>Here’s a crude and imperfect (aren’t they all?) benchmark. In each language, I find the minimum run time, across three runs, of <code>tapply()</code> and <code>mapg()</code>, applied to a randomly sampled vector of 10^{6} standard Normal data grouped first into 26 groups defined by uniformly sampling letters from the English alphabet and then grouped into the integers 1 to 50, also uniformly sampled. All times are reported in seconds. First, in R.</p>
+<pre><code>timeit &lt;- function(gidx) {
+  set.seed(54231184)
+  N &lt;- 1e6
+  xx &lt;- rnorm(N)
+  gg &lt;- sample(gidx, N, replace = TRUE)
+  mintime &lt;- Inf
+  for (j in 1:3) {
+    time &lt;- system.time(tapply(xx, gg, sum))[1]
+    if (time &lt; mintime) mintime &lt;- time
+  }
+  return(mintime)
+}
+
+timeit(letters)
+
+## user.self 
+##      0.04
+
+timeit(1:50)
+
+## user.self 
+##      0.01</code></pre>
+<p>Next, in Julia.</p>
+<pre><code>using Random
+
+function timeit(gidx)
+  Random.seed!(54231184)
+  N = convert(Int, 1e6)
+  xx = randn(N)
+  gg = rand(gidx, N)
+  mintime = Inf
+  for j in 1:3
+    time = @elapsed mapg(sum, xx, gg)
+    time &lt; mintime &amp;&amp; (mintime = time)
+  end
+  return mintime
+end
+
+## timeit (generic function with 1 method)
+
+
+timeit('a':'z')
+
+## 0.036550301
+
+timeit(1:50)
+
+## 0.0226102</code></pre>
+<p>My function <code>mapg()</code> appears to be on par with R’s <code>tapply()</code>, at least within this narrow benchmark.</p>
+<p>An implementation using a <a href="https://en.wikipedia.org/wiki/Radix_sort">radix sorting algorithm</a> might prove faster than my use of a dictionary in <code>table()</code>. Though it might also depend on the number of groups. Maybe another blog post?</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>In this blog post, we discussed the function <code>tapply()</code>, showcased some examples, and then dove head first into some fairly serious Julia code. It all started out fun and games, until the end :) Hopefully you learned some use-cases of an occasionally helpful function, namely <code>tapply()</code>, and got a chance to think about its underlying implementation.</p>
+<p><em>Image credit <a href="https://cran.r-project.org/">R</a> and <a href="https://julialang.org/">Julia</a></em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

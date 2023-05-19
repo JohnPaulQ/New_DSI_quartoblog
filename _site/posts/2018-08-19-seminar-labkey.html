@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Robin Donatello">
+<meta name="dcterms.date" content="2018-10-01">
+<meta name="description" content="Secure collaboration for research labs">
 
-<title>Data Science Initiative - Student Projects</title>
+<title>Data Science Initiative - Seminar: LabKey Server</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +26,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -62,37 +63,7 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -103,10 +74,10 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./DSI_Pics/DSI_Avatar_03.ico" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../DSI_Pics/DSI_Avatar_03.ico" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Data Science Initiative</span>
     </a>
   </div>
@@ -116,7 +87,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./news.html">
+    <a class="nav-link" href="../news.html">
  <span class="menu-text">News/Events</span></a>
   </li>  
   <li class="nav-item">
@@ -124,7 +95,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Mission</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./projects.html" aria-current="page">
+    <a class="nav-link" href="../projects.html">
  <span class="menu-text">Student Projects</span></a>
   </li>  
   <li class="nav-item">
@@ -162,44 +133,135 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Student Projects</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Seminar: LabKey Server</h1>
+                  <div>
+        <div class="description">
+          Secure collaboration for research labs
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">event</div>
+              </div>
+                  </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Robin Donatello </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 1, 2018</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-labkey-server" id="toc-what-is-labkey-server" class="nav-link active" data-scroll-target="#what-is-labkey-server">What Is LabKey Server</a>
+  <ul class="collapse">
+  <li><a href="#secure-collaboration" id="toc-secure-collaboration" class="nav-link" data-scroll-target="#secure-collaboration">Secure Collaboration</a></li>
+  <li><a href="#robust-in-features-and-solid-in-engineering" id="toc-robust-in-features-and-solid-in-engineering" class="nav-link" data-scroll-target="#robust-in-features-and-solid-in-engineering">Robust in Features and Solid in Engineering</a></li>
+  <li><a href="#mostly-free" id="toc-mostly-free" class="nav-link" data-scroll-target="#mostly-free">Mostly Free</a></li>
+  <li><a href="#mostly-open-source" id="toc-mostly-open-source" class="nav-link" data-scroll-target="#mostly-open-source">Mostly Open Source</a></li>
+  </ul></li>
+  <li><a href="#demo" id="toc-demo" class="nav-link" data-scroll-target="#demo">Demo</a></li>
+  <li><a href="#how-to-get-started-with-labkey-server" id="toc-how-to-get-started-with-labkey-server" class="nav-link" data-scroll-target="#how-to-get-started-with-labkey-server">How To Get Started With LabKey Server</a>
+  <ul class="collapse">
+  <li><a href="#about-jim-piper" id="toc-about-jim-piper" class="nav-link" data-scroll-target="#about-jim-piper">About Jim Piper</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
+<p>The DSI is excited for our first speaker for Fall 2018. Jim Piper has been a regular at our DSI talks and events and is going to share with us his work on <strong>LabKey Server</strong>, a team collaboration software program specialized for the sciences. A hands demo of this program will be included.</p>
+<ul>
+<li>When: Tuesday October 9th, 2- 2:50pm</li>
+<li>Where: MLIB 442</li>
+</ul>
+<p>Light refreshments will be provided by the DSI.</p>
+<hr>
+<section id="what-is-labkey-server" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-labkey-server">What Is LabKey Server</h2>
+<section id="secure-collaboration" class="level3">
+<h3 class="anchored" data-anchor-id="secure-collaboration">Secure Collaboration</h3>
+<ul>
+<li>Password protected web site for your team to share and coordinate work on multiple projects hosted on your own hardware or in the cloud</li>
+<li>Create group discussion forums with messages that include markdown</li>
+<li>Upload/Download files</li>
+<li>Import data from csv and xls files into a relational database</li>
+<li>Create interactive visualizations</li>
+<li>Create views of data that span multiple datasets using powerful sql based queries and filters</li>
+<li>Make only selected reports view-able to the public on the web</li>
+<li>Rich APIs for getting data from LabKey to interact with Python and R scripts</li>
+<li>Extensive documentation and active community forums <a href="https://www.labkey.org/Documentation/wiki-page.view?name=introLabKey">What Is LabKey</a></li>
+</ul>
+</section>
+<section id="robust-in-features-and-solid-in-engineering" class="level3">
+<h3 class="anchored" data-anchor-id="robust-in-features-and-solid-in-engineering">Robust in Features and Solid in Engineering</h3>
+<ul>
+<li>LabKey Server got its start in 2003 at the Fred Hutchinson Cancer Research Center in Seattle Washington. In 2005 the LabKey company was founded partly owned by the Hutch. In 2013 they moved into their own offices in Seattle. LabKey is currently used by over 500 researcher organizations for all types of research with small and large teams around the world including the <a href="https://zika.labkey.com/project/home/begin.view?">Zika Open Research Poral</a>.</li>
+<li>LabKey Server is actively being developed by a team of skilled software engineers, testers, ux designers, documentation writers, project managers, and customer support people. LabKey Server functionality has grown over the years always embracing new technologies. The current ui is snappy and responsive utilizing java script, bootstrap and font-awesome among other tools. LabKey is built primarily with java technologies and supports users interacting with a wide selection of protocols including ldap, WebDav, Markdown, Java Script, and HTML.</li>
+</ul>
+</section>
+<section id="mostly-free" class="level3">
+<h3 class="anchored" data-anchor-id="mostly-free">Mostly Free</h3>
+<ul>
+<li>Features mentioned above and more are included in the <a href="https://www.labkey.org/home/project-begin.view?">free community edition</a> under the Apache Software License Version 2.0. There are additional features and support that do require a subscription but the free community edition is very powerful in itself.</li>
+</ul>
+</section>
+<section id="mostly-open-source" class="level3">
+<h3 class="anchored" data-anchor-id="mostly-open-source">Mostly Open Source</h3>
+<ul>
+<li>Source code is made available for most all base features of LabKey server. LabKey Server can be compiled from source if needed to run on most any environment. A modulalrized architecture makes new features and source code customizations straight forward.</li>
+</ul>
+</section>
+</section>
+<section id="demo" class="level2">
+<h2 class="anchored" data-anchor-id="demo">Demo</h2>
+<ul>
+<li>Demonstrate uploading an example csv dataset and using it to creating interactive visualizations as done <a href="https://www.labkey.org/home/Demos/10minutetour/project-begin.view?pageId=Start%20Here">here</a></li>
+</ul>
+</section>
+<section id="how-to-get-started-with-labkey-server" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-get-started-with-labkey-server">How To Get Started With LabKey Server</h2>
+<ul>
+<li>Get a free Hosted 30 day trial and <a href="https://www.labkey.com/trial-sign-up/">have your own free LabKey website in 5 mintues with just a few clicks</a></li>
+<li>Make your own permanent free website on your own hardware or in the cloud. You will need a dedicated computer, Java, Postgres or MSSQL Server, network connectivity and probably a few hours of setup time. Setup requires a strong familiarity with networking, Tomcat based web applications, Java, and Relational Databases. <a href="https://www.labkey.org/Documentation/wiki-page.view?name=devMachine">Follow the directions here for a permanent free LabKey website.</a></li>
+</ul>
+<section id="about-jim-piper" class="level3">
+<h3 class="anchored" data-anchor-id="about-jim-piper">About Jim Piper</h3>
+<ul>
+<li>Jim Piper is the owner operator of <a href="http://labdataintegration.com/">Lab Data Interation LLC</a> a software consultancy specializing in helping researchers manage data and adopt machine learning techniques. Jim has been working with Java and web applications since finishing his Masters degree at San Jose State in 1999. Jim worked as a software developer for LabKey from 2016 through 2018. Jim’s full work history can be found on <a href="https://www.linkedin.com/in/jim-piper-63b0006/">linkedin</a>.</li>
+</ul>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

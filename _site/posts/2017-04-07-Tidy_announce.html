@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Rick Hubbard">
+<meta name="dcterms.date" content="2017-04-07">
+<meta name="description" content="Spring 17 DSI Workshop Series on R">
 
-<title>Data Science Initiative - Student Projects</title>
+<title>Data Science Initiative - DSI Workshop - Preparing Data for Analysis using R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +26,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -62,37 +63,7 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -103,10 +74,10 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./DSI_Pics/DSI_Avatar_03.ico" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../DSI_Pics/DSI_Avatar_03.ico" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Data Science Initiative</span>
     </a>
   </div>
@@ -116,7 +87,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./news.html">
+    <a class="nav-link" href="../news.html">
  <span class="menu-text">News/Events</span></a>
   </li>  
   <li class="nav-item">
@@ -124,7 +95,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Mission</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./projects.html" aria-current="page">
+    <a class="nav-link" href="../projects.html">
  <span class="menu-text">Student Projects</span></a>
   </li>  
   <li class="nav-item">
@@ -162,44 +133,95 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Student Projects</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">DSI Workshop - Preparing Data for Analysis using R</h1>
+                  <div>
+        <div class="description">
+          Spring 17 DSI Workshop Series on R
+        </div>
+      </div>
+                </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Rick Hubbard </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 7, 2017</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#logistics" id="toc-logistics" class="nav-link active" data-scroll-target="#logistics">Logistics</a></li>
+  <li><a href="#are-your-data-tidy-or-untidy" id="toc-are-your-data-tidy-or-untidy" class="nav-link" data-scroll-target="#are-your-data-tidy-or-untidy">Are Your Data Tidy? Or, untidy?</a>
+  <ul class="collapse">
+  <li><a href="#data-science-initiative---hands-on-workshop-series" id="toc-data-science-initiative---hands-on-workshop-series" class="nav-link" data-scroll-target="#data-science-initiative---hands-on-workshop-series">Data Science Initiative - Hands-on Workshop Series</a></li>
+  <li><a href="#data-science-initiative-learning-doing-andcookies" id="toc-data-science-initiative-learning-doing-andcookies" class="nav-link" data-scroll-target="#data-science-initiative-learning-doing-andcookies">Data Science Initiative: Learning, Doing and…Cookies!</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
+<section id="logistics" class="level1">
+<h1>Logistics</h1>
+<ul>
+<li>MLIB 442</li>
+<li>3PM - 4:30M(+)</li>
+<li>Friday</li>
+<li>April 7, 2017</li>
+<li>Dr.&nbsp;Rick Hubbard</li>
+</ul>
+</section>
+<section id="are-your-data-tidy-or-untidy" class="level1">
+<h1>Are Your Data Tidy? Or, untidy?</h1>
+<p>Before data can be modeled, analyzed or interpreted…</p>
+<p>…data must be accessible in meaning-laden forms.</p>
+<p>Annually, many Analysts around the globe report expending up to 80% of the effort and duration of an investigation in “wrangling” and “tidying” data into a “shape” that enables thoughtful, economical analysis. Does this sound like one of your projects?</p>
+<section id="data-science-initiative---hands-on-workshop-series" class="level2">
+<h2 class="anchored" data-anchor-id="data-science-initiative---hands-on-workshop-series">Data Science Initiative - Hands-on Workshop Series</h2>
+<p>As part of its <em>Hands-on Workshop Series</em>, the <strong>Chico Data Science Initiative</strong> is pleased to provide this practical and applied session. <em>Preparing Data for Analysis</em> is designed to assist everyone that analyzes data succeed and avoid (and/or resolve) frustrating problems unfortunately inherent in many datasets.</p>
+<p>The <em>Preparing Data for Analysis Workshop</em> offers something for everyone…from the earliest of beginners to the most sophisticated Data Scientists.</p>
+</section>
+<section id="data-science-initiative-learning-doing-andcookies" class="level2">
+<h2 class="anchored" data-anchor-id="data-science-initiative-learning-doing-andcookies">Data Science Initiative: Learning, Doing and…Cookies!</h2>
+<p>In addition to a place in space and time where interesting people address and resolve challenging questions, the Data Science Initiative also has a reputation for three fabulous things:</p>
+<ul>
+<li><strong>Learning</strong> (about data, modeling, analysis, interpretation, visualization, etc.);</li>
+<li><strong>Doing</strong> (all the above plus mentoring and problem-resolution); and</li>
+<li><strong>Cookies</strong> (considered self-evident).</li>
+</ul>
+<p><a href="../event/tidy_rick/">Workshop Details &amp; Materials</a></p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

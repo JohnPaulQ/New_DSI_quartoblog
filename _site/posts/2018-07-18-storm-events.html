@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Edward Roualdes">
+<meta name="dcterms.date" content="2018-07-18">
+
+<title>Data Science Initiative - Measuring Variation in the Empirical Storm Season Over Time</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../DSI_Pics/DSI_Avatar_03.ico" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Data Science Initiative</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news.html">
+ <span class="menu-text">News/Events</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.csuchico.edu/datascience/mission.shtml">
+ <span class="menu-text">Mission</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html">
+ <span class="menu-text">Student Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://norcaldatafest.netlify.app/">
+ <span class="menu-text">NorCal DataFest!</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/csucdsi">
+ <span class="dropdown-text">CSUC DSI</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/DATA-490">
+ <span class="dropdown-text">Math 490</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Measuring Variation in the Empirical Storm Season Over Time</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">analysis</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Edward Roualdes </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 18, 2018</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#related-research" id="toc-related-research" class="nav-link" data-scroll-target="#related-research">Related Research</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
+  <ul class="collapse">
+  <li><a href="#has-the-variation-in-the-empirical-storm-season-changed-over-time" id="toc-has-the-variation-in-the-empirical-storm-season-changed-over-time" class="nav-link" data-scroll-target="#has-the-variation-in-the-empirical-storm-season-changed-over-time">Has the variation in the empirical storm season changed over time?</a>
+  <ul class="collapse">
+  <li><a href="#state-space-model" id="toc-state-space-model" class="nav-link" data-scroll-target="#state-space-model">State Space Model</a></li>
+  </ul></li>
+  <li><a href="#is-the-annual-percentage-of-storms-outside-official-storm-season-changing" id="toc-is-the-annual-percentage-of-storms-outside-official-storm-season-changing" class="nav-link" data-scroll-target="#is-the-annual-percentage-of-storms-outside-official-storm-season-changing">Is the Annual percentage of storms outside official storm season changing?</a></li>
+  <li><a href="#is-the-distribution-of-the-empirical-storm-season-stationary" id="toc-is-the-distribution-of-the-empirical-storm-season-stationary" class="nav-link" data-scroll-target="#is-the-distribution-of-the-empirical-storm-season-stationary">Is the Distribution of the Empirical Storm Season Stationary?</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#licenses" id="toc-licenses" class="nav-link" data-scroll-target="#licenses">Licenses</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<!---
+<h1>Table of Contents<span class="tocSkip"></span></h1>
+<div class="toc"><ul class="toc-item"><li><span><a href="#Measuring-Variation-in-the-Empirical-Storm-Season-Over-Time" data-toc-modified-id="Measuring-Variation-in-the-Empirical-Storm-Season-Over-Time-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Measuring Variation in the Empirical Storm Season Over Time</a></span></li><li><span><a href="#Introduction" data-toc-modified-id="Introduction-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#Related-Research" data-toc-modified-id="Related-Research-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Related Research</a></span></li><li><span><a href="#Data-Preparation" data-toc-modified-id="Data-Preparation-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Data Preparation</a></span></li><li><span><a href="#Analysis" data-toc-modified-id="Analysis-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Analysis</a></span><ul class="toc-item"><li><span><a href="#Has-the-variation-in-the-empirical-storm-season-changed-over-time?" data-toc-modified-id="Has-the-variation-in-the-empirical-storm-season-changed-over-time?-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Has the variation in the empirical storm season changed over time?</a></span><ul class="toc-item"><li><span><a href="#State-Space-Model" data-toc-modified-id="State-Space-Model-5.1.1"><span class="toc-item-num">5.1.1&nbsp;&nbsp;</span>State Space Model</a></span><ul class="toc-item"><li><span><a href="#Model-Priors" data-toc-modified-id="Model-Priors-5.1.1.1"><span class="toc-item-num">5.1.1.1&nbsp;&nbsp;</span>Model Priors</a></span></li></ul></li></ul></li><li><span><a href="#Is-the-Annual-percentage-of-storms-outside-official-storm-season-changing?" data-toc-modified-id="Is-the-Annual-percentage-of-storms-outside-official-storm-season-changing?-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Is the Annual percentage of storms outside official storm season changing?</a></span></li><li><span><a href="#Is-the-Distribution-of-the-Empirical-Storm-Season-Stationary?" data-toc-modified-id="Is-the-Distribution-of-the-Empirical-Storm-Season-Stationary?-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>Is the Distribution of the Empirical Storm Season Stationary?</a></span></li></ul></li><li><span><a href="#Conclusion" data-toc-modified-id="Conclusion-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Conclusion</a></span></li><li><span><a href="#Acknowledgments" data-toc-modified-id="Acknowledgments-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Acknowledgments</a></span></li><li><span><a href="#References" data-toc-modified-id="References-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>References</a></span></li><li><span><a href="#Licenses" data-toc-modified-id="Licenses-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Licenses</a></span></li></ul></div>
+
+--->
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This blog post attempts an analysis of the annual variability of dates on which storms formed during the years 1950 to 2016. Throughout, the word storm will refer to named tropical or subtropical cyclones in the Atlantic Ocean. The inspiration of this analysis came from a <a href="http://www.csuchico.edu/">CSU, Chico</a> campus seminar.</p>
+<p>During the Fall semester of 2017, CSU, Chico’s <a href="http://www.csuchico.edu/%7eabykerk-kauffman/">Dr.&nbsp;Ann Bykerk-Kauffman</a> gave one of three talks at the <a href="http://www.csuchico.edu/geos/index.shtml">Department of Geological and Environmental Sciences</a> seminar titled <a href="http://www.csuchico.edu/geos/stories/17.09.14_HurricaneTalk.shtml">2017 Hurricane Talk</a>. Part of Dr.&nbsp;Bykerk-Kauffman’s presentation included data from the National Oceanic and Atmospheric Administration’s National Hurricane Center’s (NHC) Data Archive: https://www.nhc.noaa.gov/data/#hurdat [Landsea:2013]. After her talk, Dr.&nbsp;David M. Hassenzahl, Dean of the <a href="https://www.csuchico.edu/nsci/index.shtml">College of Natural Sciences</a>, asked a great question, which I’ll try to paraphrase: Is the variation of the empirical storm season changing over time?</p>
+<p>One possible way to interpret the phrase <em>variation of the empirical storm season</em> goes like this. The <a href="https://en.wikipedia.org/wiki/Atlantic_hurricane_season">official storm season</a> is June 01 to November 30. The official storms season proves useful as a contrast to an empirical storm season. The word empirical refers to the actual dates for which the named storms in any given year form. Just because we define a storm season, does not mean all the storms form within the official storm season. Some years contain some storms outside the official storm season, and some years contain all storms within the official storm season – as we’ll see later, no year in our data set has all storms outside of the official storm season. Since there is not a direct correspondence between the official storm season and the empirical storm season, it’s useful to separate these two phrases. Last, the word variation describes the average distance (measured in days) from the middle of the empirical storm season.</p>
+<p>There are of course other ways to measure the variation of the empirical storm season. This blog post attempts to quantify the annual variation of the empirical storm season in three different ways. The first attempt follows the logic in the last paragraph. The second attempt defines a percentage of storms that form outside of the official storm season, relative to the total number of storms in each year. The last attempt hypothesizes a probability distribution that produces storms throughout the year, and then asks if this distribution of storms changes over time.</p>
+<p>The rest of this post proceeds as follows. Section 3 discusses some related research and briefly compares this analysis to previous efforts. Section 4 walks through the data preparation necessary for our analyses. Section 5 contains the bulk of the analysis, for which multiple measurements of variation of the storm season are considered as a time series. Here, we focus on Atlantic storms from the years 1950 to 2016. However, no qualitative, and only minor quantitative, differences are found by analyzing Pacific Ocean storms simiarly. The post is concluded in Section 6, and Sections 7 and 8 offer my appreciation to those who directly and indirectly made this analysis possible.</p>
+</section>
+<section id="related-research" class="level1">
+<h1>Related Research</h1>
+<p>Much research effort is spent on storms of the Atlantic Ocean. For instance, just a quick glance of <a href="http://www.noaa.gov/media-releases">NOAA’s media releases</a> shows that much of their latest research revolves around the storm season. With a little more attention to their articles, it’s clear that this work focuses on storm intensity and/or number of storms. Less research is devoted to the variation in the storm season.</p>
+<p>In 2008, Kossin tried to answer “Is the North Atlantic hurricane season getting longer?” [Kossin:2008]. Based on the sign of his point estimates, Kossin concluded that the hurricane season is indeed getting longer. This was the conclusion despite high uncertainty in the point estimates. For the analysis, Kossin used quantile regression on the dates for which storms formed within each year. We note that quantile regression inherently treats the observations as independent acorss time.</p>
+<p>Despite no statistically significant finding, due to high uncertainty, at least two websites picked up on Kossin’s article: <a href="https://www.livescience.com/2686-hurricane-season-longer.html">Live Science</a> and <a href="https://www.wunderground.com/blog/JeffMasters/is-the-atlantic-hurricane-season-getting-longer.html">Wunderground</a>. Within each story, the uncertainty is glossed over. This stands in stark contrast to Karloski’s summary of Kossin’s work [Karloski:2016]. Karloski replicated Kossin’s work and provided stronger wording about the uncertain estimates of an increase in variation.</p>
+<p>In 2017, evidence of correlations in the storm seasons across time surfaced in the article “Variation of the Tropical Cyclone Season Start in the Western North Pacific” [Kim:2017]. Specifically, the authors found that a strong El Niño year will delay the start of the storm season in the following year. This analysis, too, treated the annual measurements of the storm season as independent across time. Using linear regression applied to a statistic similar to the interquartile range (using percentiles 95% and 5%, instead of 75% and 25%), Kim found a statistically insignificant shrink in the storm season.</p>
+<p>Like these previous studies, the following analysis attempts to measure the variation in the storm season by using the dates within the year for which named storms first formed. Unlike these previous studies, this study fits a model more common to time series data. We use a semilocal linear trend model to account for potential autocorrelation in the storm season. Further, we introduce novel measures of variation of the storm season.</p>
+</section>
+<section id="data-preparation" class="level1">
+<h1>Data Preparation</h1>
+<p>We begin by setting up the working environment: loading <a href="https://www.python.org">Python</a> and various packages common to Python’s data science community, including <a href="http://mc-stan.org">Stan</a> the probabilistic programming language which we’ll use to fit a Bayesian structural time series model.</p>
+<p>The HURDAT2 [Landsea:2013] data used here was processed from the NHC data archive to enable this analysis. The source code and data are available on <a href="https://github.com/roualdes/stormevents">GitHub</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.dates <span class="im">as</span> mdates</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> rc</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bplot <span class="im">as</span> bp</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pystan</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> stan_utility</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>rc(<span class="st">'text'</span>, usetex<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/roualdes/stormevents/master/data.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To properly work with dates in Python, we convert dates, from the format YYYMMDD, into formal datetime objects. We assign numbers to dates by counting days since 0001-01-01 UTC plus 1; see <a href="https://matplotlib.org/api/dates_api.html">matplotlib dates</a> for technical details.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'date'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'%Y%m</span><span class="sc">%d</span><span class="st">'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.drop_duplicates(<span class="st">'name'</span>, inplace<span class="op">=</span><span class="va">True</span>) <span class="co"># don't double count storms</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'year'</span>] <span class="op">=</span> df.date.dt.year </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">'year'</span>] <span class="op">&gt;=</span> <span class="dv">1950</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'month'</span>] <span class="op">=</span> df.date.dt.month</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'cnum_dates'</span>] <span class="op">=</span> mdates.date2num([datetime.datetime(<span class="dv">2018</span>, d.month, d.day)                     </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                         <span class="cf">for</span> _, d <span class="kw">in</span> df[<span class="st">'date'</span>].dropna().iteritems()]) </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'num_dates'</span>] <span class="op">=</span> mdates.date2num([datetime.datetime(d.year, d.month, d.day)                     </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                         <span class="cf">for</span> _, d <span class="kw">in</span> df[<span class="st">'date'</span>].iteritems()])</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">'name'</span>].<span class="bu">str</span>.contains(<span class="st">'^AL'</span>)].copy() <span class="co"># Atlantic</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+
+
+<table class="dataframe table table-sm table-striped">
+<thead>
+<tr>
+<th>
+</th>
+<th>
+date
+</th>
+<th>
+time
+</th>
+<th>
+record_identifier
+</th>
+<th>
+intensity_rating
+</th>
+<th>
+name
+</th>
+<th>
+year
+</th>
+<th>
+month
+</th>
+<th>
+cnum_dates
+</th>
+<th>
+num_dates
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+21879
+</th>
+<td>
+1950-08-12
+</td>
+<td>
+0.0
+</td>
+<td>
+NaN
+</td>
+<td>
+TS
+</td>
+<td>
+AL011950
+</td>
+<td>
+1950
+</td>
+<td>
+8
+</td>
+<td>
+736918.0
+</td>
+<td>
+712081.0
+</td>
+</tr>
+<tr>
+<th>
+21930
+</th>
+<td>
+1950-08-18
+</td>
+<td>
+1200.0
+</td>
+<td>
+NaN
+</td>
+<td>
+TD
+</td>
+<td>
+AL021950
+</td>
+<td>
+1950
+</td>
+<td>
+8
+</td>
+<td>
+736924.0
+</td>
+<td>
+712087.0
+</td>
+</tr>
+<tr>
+<th>
+21990
+</th>
+<td>
+1950-08-21
+</td>
+<td>
+1200.0
+</td>
+<td>
+NaN
+</td>
+<td>
+TS
+</td>
+<td>
+AL031950
+</td>
+<td>
+1950
+</td>
+<td>
+8
+</td>
+<td>
+736927.0
+</td>
+<td>
+712090.0
+</td>
+</tr>
+<tr>
+<th>
+22051
+</th>
+<td>
+1950-08-30
+</td>
+<td>
+1800.0
+</td>
+<td>
+NaN
+</td>
+<td>
+HU
+</td>
+<td>
+AL041950
+</td>
+<td>
+1950
+</td>
+<td>
+8
+</td>
+<td>
+736936.0
+</td>
+<td>
+712099.0
+</td>
+</tr>
+<tr>
+<th>
+22125
+</th>
+<td>
+1950-09-01
+</td>
+<td>
+600.0
+</td>
+<td>
+NaN
+</td>
+<td>
+TS
+</td>
+<td>
+AL051950
+</td>
+<td>
+1950
+</td>
+<td>
+9
+</td>
+<td>
+736938.0
+</td>
+<td>
+712101.0
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+<p>With dates properly set up, we can easily visualize the total number of storms each year. As expected, 2005 stands out as a sensational year for Atlantic Ocean storms.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ax.cla()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>bp.curve(df[<span class="st">'year'</span>].unique(), </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         df[<span class="st">'date'</span>].dt.year.value_counts().sort_index())</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of storms'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="..\post/stormevents_files/stormevents_13_0.png" class="img-fluid"></p>
+<p>Or we can sum, within each month, the number storms that formed in the Atlantic Ocean. September appears to be the most common month for a storm.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>].dt.month.value_counts().sort_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>1       3
+2       1
+4       5
+5      25
+6      73
+7     113
+8     251
+9     332
+10    163
+11     47
+12     11
+Name: date, dtype: int64</code></pre>
+<p>Similar information is displayed with a histogram. The histogram is nice because we can see how well the official storm season captures the highest density of storms. Like above, the plot below is aggregated over all the years for which we have data. <a id="average_density"></a></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>storm_season <span class="op">=</span> mdates.date2num([datetime.datetime(<span class="dv">2018</span>, <span class="dv">6</span>, <span class="dv">1</span>), </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                datetime.datetime(<span class="dv">2018</span>, <span class="dv">11</span>, <span class="dv">30</span>)])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>ax.cla()      </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>bp.histogram(df[<span class="st">'cnum_dates'</span>], bins<span class="op">=</span><span class="dv">365</span><span class="op">//</span><span class="dv">4</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>bp.density(df[<span class="st">'cnum_dates'</span>], alpha<span class="op">=</span><span class="fl">0.25</span>) </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>bp.rug(storm_season, markersize<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">'tab:red'</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Month'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)      </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Average Density of Storms'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>ax.set_xlim([df[<span class="st">'cnum_dates'</span>].<span class="bu">min</span>(), df[<span class="st">'cnum_dates'</span>].<span class="bu">max</span>()])  </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_locator(mdates.AutoDateLocator())                                 </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(mdates.DateFormatter(<span class="st">'%m'</span>))                          </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="..\post/stormevents_files/stormevents_17_0.png" class="img-fluid"></p>
+<p>Averaged across all years, there is about 10% of storms that fall outside of the official storm season. Below is the calculation of the percentage of storms within the official storm season.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>((df[<span class="st">'cnum_dates'</span>] <span class="op">&gt;</span> storm_season[<span class="dv">0</span>]) <span class="op">&amp;</span> (df[<span class="st">'cnum_dates'</span>] <span class="op">&lt;</span> storm_season[<span class="dv">1</span>])) <span class="op">/</span> df.shape[<span class="dv">0</span>] <span class="op">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>95.5078125</code></pre>
+</section>
+<section id="analysis" class="level1">
+<h1>Analysis</h1>
+<section id="has-the-variation-in-the-empirical-storm-season-changed-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="has-the-variation-in-the-empirical-storm-season-changed-over-time">Has the variation in the empirical storm season changed over time?</h2>
+<p>In an effort to answer Dean Hassenzahl’s question, we attempt to measure the variation of the empirical storm season year over year. To measure such variation, we will use the <a href="https://en.wikipedia.org/wiki/Median_absolute_deviation">median absolute deviation</a> (MAD) statistic. The MAD statistic is an estimator of the population standard deviation σ, which is based on the median instead of the mean making it more robust to potential outliers.</p>
+<p>To measure the variation of the emprical storm season over time, first consider a year <span class="math inline">\(Y\)</span>. In year <span class="math inline">\(Y\)</span>, there will be a handful of storms that occur at different times. Recall, we converted dates to numbers as per the discussion above in Section Data Preparation. Define the median storm date as the date corresponding to the median of the numbers that represent the storms’ dates.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'median'</span>] <span class="op">=</span> df.groupby(<span class="st">'year'</span>)[<span class="st">'num_dates'</span>].transform(<span class="kw">lambda</span> x: x.median())</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'median_date'</span>] <span class="op">=</span> mdates.num2date(df[<span class="st">'median'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The plot below depicts this visually for the year 2005. The histogram of storms in 2005 appears in blue, as do the vertical ticks representing each storm. The median storm date appears as the taller, red tick. <a id="2005_density"></a></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>idx_2005 <span class="op">=</span> df[<span class="st">'year'</span>] <span class="op">==</span> <span class="dv">2005</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ax.cla()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>bp.histogram(df[<span class="st">'num_dates'</span>].loc[idx_2005], bins<span class="op">=</span><span class="dv">365</span><span class="op">//</span><span class="dv">30</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>bp.rug(df[<span class="st">'num_dates'</span>].loc[idx_2005].values, markersize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>bp.rug(df[<span class="st">'median'</span>].loc[idx_2005].values[:<span class="dv">1</span>], markersize<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">'tab:red'</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Month'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)      </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Density of Storms in 2005'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>ax.set_xlim([datetime.datetime(<span class="dv">2005</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>             datetime.datetime(<span class="dv">2005</span>, <span class="dv">12</span>, <span class="dv">1</span>)])  </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_locator(mdates.AutoDateLocator())                                 </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(mdates.DateFormatter(<span class="st">'%m'</span>)) </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="..\post/stormevents_files/stormevents_25_0.png" class="img-fluid"></p>
+<p>By this definition, across all the years, the median storm dates generaly fall in August or September. The following table depicts the counts of the median storm date within each numbered month, over all the years for which we have data.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df.drop_duplicates(<span class="st">'year'</span>, inplace<span class="op">=</span><span class="va">False</span>)[<span class="st">'median_date'</span>].dt.month.value_counts().sort_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>7      1
+8     23
+9     42
+10     1
+Name: median_date, dtype: int64</code></pre>
+<p>The median storm date strictly measures an average storm date within year <span class="math inline">\(Y\)</span>. Variation on the other hand measures average distance from the median storm date. We measure distance from the median storm date in days. Since some storms form before the median storm date and some storms after, we take the absolute value of the distance of each storm from the median storm date. Our MAD estimator is the median of the absolute values of these distances. The last step scales our MAD estimator by <span class="math inline">\(\frac{1}{\Phi^{-1}(0.75)} \approx 1.4826\)</span>, in a fairly standard assumption of normal data. In the end, we have MAD estimates of the variation of the empirical storm season for each year in our data set.</p>
+<p>To help visualize this calculation, consider the plot above. For each storm (blue ticks), count the days between each storm and the median storm date (red tick), disregarding any potential negative signs. From these counts, calculate the median and then scale it by <span class="math inline">\(1.4826\)</span>. This calcuation is done for each year, and we refer to the collection of yearly statistics as the MAD estimates.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'mad'</span>] <span class="op">=</span> df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.<span class="bu">abs</span>((x[<span class="st">'num_dates'</span>] <span class="op">-</span> x[<span class="st">'median'</span>])), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sdf <span class="op">=</span> (df[[<span class="st">'year'</span>, <span class="st">'mad'</span>]].groupby(<span class="st">'year'</span>, as_index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>            .aggregate(<span class="kw">lambda</span> x: <span class="fl">1.4826</span><span class="op">*</span>np.median(x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A plot of the MAD estimates across time appears below. A non-zero slope would indicate a change in the variation of the empirical storm season across time. Hence, to answer Dean Hassenzahl’s question, we seek to quantify statistically the slope of these data.</p>
+<p>A standard first attempt would fit simple linear regression to these data. However, fitting linear regression to these data strictly ignores any possible correlation in storm seasons across time. In this scenario, each year is treated as independent. Recall, both Kossin and Kim treated their data as independent across time.</p>
+<p>Treating each year as independent can be suspicious and can lead to over confident conclusions. We are more interested in the semilocal linear trend model mentioned previously. As a comparison, we fit linear regression and the semilocal linear trend model.</p>
+<p>The plot below depicts the MAD estimates of the storm season by year in blue, with the estimate from linear regression overlayed in red. The subtle negative slope indicates that, if anything, the variation of the emprical storm season is decreasing in time. The negative sign of this slope agrees qualitatively with Kim, but disagrees with Kossin and Karloski. Though we remind the reader that we are measureing the variation of the empirical storm season differently than Kossin and Karloski. Nevertheless, here we are most interested in the uncertainty of this slope estimate.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> sm.OLS(sdf[<span class="st">'mad'</span>], sm.tools.add_constant(sdf[<span class="st">'year'</span>])).fit()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>ax.cla()</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>bp.curve(sdf[<span class="st">'year'</span>], sdf[<span class="st">'mad'</span>], alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>bp.line(sdf[<span class="st">'year'</span>], reg.fittedvalues, color<span class="op">=</span><span class="st">'tab:red'</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'MAD'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'MAD of Storm Season by Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="..\post/stormevents_files/stormevents_31_0.png" class="img-fluid"></p>
+<p>The plot above looks reasonable and the slope point estimate is reasonable given the uncertainty seen in that point estimate. We should not focus on the p-value, rather we should focus on the standard error in the estimated coefficient year.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>reg.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<pre><code>     &lt;td&gt;mad&lt;/td&gt;       &lt;th&gt;  R-squared:         &lt;/th&gt; &lt;td&gt;   0.000&lt;/td&gt;</code></pre><pre><code>             &lt;td&gt;OLS&lt;/td&gt;       &lt;th&gt;  Adj. R-squared:    &lt;/th&gt; &lt;td&gt;  -0.015&lt;/td&gt;</code></pre><pre><code>       &lt;td&gt;Least Squares&lt;/td&gt;  &lt;th&gt;  F-statistic:       &lt;/th&gt; &lt;td&gt;0.009973&lt;/td&gt;</code></pre><pre><code>       &lt;td&gt;Wed, 04 Jul 2018&lt;/td&gt; &lt;th&gt;  Prob (F-statistic):&lt;/th&gt;  &lt;td&gt; 0.921&lt;/td&gt; </code></pre><pre><code>           &lt;td&gt;17:13:23&lt;/td&gt;     &lt;th&gt;  Log-Likelihood:    &lt;/th&gt; &lt;td&gt; -251.32&lt;/td&gt;</code></pre><pre><code>&lt;td&gt;    67&lt;/td&gt;      &lt;th&gt;  AIC:               &lt;/th&gt; &lt;td&gt;   506.6&lt;/td&gt;</code></pre><pre><code>    &lt;td&gt;    65&lt;/td&gt;      &lt;th&gt;  BIC:               &lt;/th&gt; &lt;td&gt;   511.1&lt;/td&gt;</code></pre><pre><code>        &lt;td&gt;     1&lt;/td&gt;      &lt;th&gt;                     &lt;/th&gt;     &lt;td&gt; &lt;/td&gt;   </code></pre><pre><code>&lt;td&gt;nonrobust&lt;/td&gt;    &lt;th&gt;                     &lt;/th&gt;     &lt;td&gt; &lt;/td&gt;   </code></pre><table class="simpletable">
+<caption>
+OLS Regression Results
+</caption>
+<tbody><tr>
+<th>
+Dep. Variable:
+</th>
+
+</tr>
+<tr>
+<th>
+Model:
+</th>
+
+</tr>
+<tr>
+<th>
+Method:
+</th>
+
+</tr>
+<tr>
+<th>
+Date:
+</th>
+
+</tr>
+<tr>
+<th>
+Time:
+</th>
+
+</tr>
+<tr>
+<th>
+No.&nbsp;Observations:
+</th>
+
+</tr>
+<tr>
+<th>
+Df Residuals:
+</th>
+
+</tr>
+<tr>
+<th>
+Df Model:
+</th>
+
+</tr>
+<tr>
+<th>
+Covariance Type:
+</th>
+
+</tr>
+
+</tbody></table>
+<table class="simpletable">
+<tbody><tr>
+<td>
+</td>
+<th>
+coef
+</th>
+<th>
+std err
+</th>
+<th>
+t
+</th>
+<th>
+P&gt;|t|
+</th>
+<th>
+[0.025]
+</th>
+</tr>
+<tr>
+<th>
+const
+</th>
+<td>
+47.9342
+</td>
+<td>
+131.006
+</td>
+<td>
+0.366
+</td>
+<td>
+0.716
+</td>
+<td>
+-213.703
+</td>
+<td>
+309.571
+</td>
+</tr>
+<tr>
+<th>
+year
+</th>
+<td>
+-0.0066
+</td>
+<td>
+0.066
+</td>
+<td>
+-0.100
+</td>
+<td>
+0.921
+</td>
+<td>
+-0.139
+</td>
+<td>
+0.125
+</td>
+</tr>
+
+</tbody></table>
+<pre><code> &lt;td&gt; 1.829&lt;/td&gt; &lt;th&gt;  Durbin-Watson:     &lt;/th&gt; &lt;td&gt;   2.333&lt;/td&gt;</code></pre><pre><code>    &lt;td&gt; 0.322&lt;/td&gt; &lt;th&gt;  Prob(JB):          &lt;/th&gt; &lt;td&gt;   0.410&lt;/td&gt;</code></pre><pre><code>&lt;td&gt; 2.527&lt;/td&gt; &lt;th&gt;  Cond. No.          &lt;/th&gt; &lt;td&gt;2.03e+05&lt;/td&gt;</code></pre><table class="simpletable">
+<tbody><tr>
+<th>
+Omnibus:
+</th>
+
+</tr>
+<tr>
+<th>
+Prob(Omnibus):
+</th>
+<td>
+0.401
+</td>
+<th>
+Jarque-Bera (JB):
+</th>
+<td>
+1.784
+</td>
+</tr>
+<tr>
+<th>
+Skew:
+</th>
+
+</tr>
+<tr>
+<th>
+Kurtosis:
+</th>
+
+</tr>
+
+</tbody></table>
+<p>The above regression output provides us a number of important summary statistics. The slope is estimated to be <span class="math inline">\(-0.007\)</span> with a standard error one order of magnitude larger. This indicates low confidence in the slope estimate.</p>
+<p>The Durbin-Watson statistic is greater than 2, possibly indicating negative autocorrelation in these data, but there’s likely to be high uncertainty in this statistic as well.</p>
+<p>To build upon this simple regression model, we will allow possible autocorrelation in the data. We next introduce the semilocal linear trend model.</p>
+<section id="state-space-model" class="level3">
+<h3 class="anchored" data-anchor-id="state-space-model">State Space Model</h3>
+<p>A more sophisticated model for these data, such that we do not strictly rule out a correlation of the storm seasons across time, is the following Bayesian structural time series model. The semilocal linear trend model describes the time series of interest <span class="math inline">\(y_{t}\)</span> as</p>
+<p><span class="math display">\[
+\begin{aligned}
+y\_t &amp; = \mu\_t + \epsilon\_t \newline
+\mu\_{t+1} &amp; = \mu\_t + \nu\_t + \gamma\_t \newline
+\nu\_{t+1} &amp; = \eta + \phi(\nu\_t - \eta) + \zeta\_t \newline
+\epsilon\_t &amp; \sim \mathbb{N}(0, \sigma\_y^2) \newline
+\gamma\_t &amp; \sim \mathbb{N}(0, \sigma\_{\mu}^2) \newline
+\zeta\_t &amp; \sim \mathbb{N}(0, \sigma\_{\nu}^2)
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(\epsilon_t, \gamma_t\)</span>, and <span class="math inline">\(\zeta_t\)</span> are independent. The notation <span class="math inline">\(\mathbb{N}(0, \sigma^2)\)</span> stands for a normal random variable with mean <span class="math inline">\(0\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>The variable <span class="math inline">\(\eta\)</span>, the long run slope in the time series, is of most interest. Specifically, we allow deviations from the slope, <span class="math inline">\(\nu\_{t}\)</span>, so long as the deviations <span class="math inline">\(\nu_{t}\)</span> tend to revert back to the long run slope. For more details on this model, consult <a href="https://www.amazon.com/Time-Analysis-State-Space-Methods/dp/019964117X/ref=pd_lpo_sbs_14_t_0?_encoding=UTF8&amp;psc=1&amp;refRID=BXZQ1XM11ZFFZDP4QVSP">Time Series Analysis by State Space Methods</a> and the <a href="https://cran.r-project.org/">R</a> package <a href="https://cran.r-project.org/web/packages/bsts/index.html">bsts</a>’s help page on their semilocal linear trend model or their blog post about the <a href="http://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html">semilocal linear trend model</a>.</p>
+<p>Here, the time series of interest <span class="math inline">\(y_t\)</span> is the yearly MAD estimates of variation of the empirical storm season. Since this model will better handle possible correlations across time in the MAD estimates of variation, we will have an appropriate estimate of the variation in the long run slope.</p>
+<p>In Stan, we write this model as follows. The priors are discussed in the next subsection.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>local_linear <span class="op">=</span> requests.get(<span class="st">'https://raw.githubusercontent.com/roualdes/stormevents/master/semilocal_linear.stan'</span>).text</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(local_linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>data {
+  int &lt;lower=1&gt; T;
+  vector[T] x;
+  vector[T] y;
+}
+transformed data {
+  real sd_y = sd(y);
+  real sd_x = sd(x);
+}
+parameters {
+  real&lt;lower=0&gt; sigma_y;
+  vector[T] gamma;
+  real&lt;lower=0&gt; sigma_gamma;
+  vector[T] zeta;
+  real&lt;lower=0&gt; sigma_zeta;
+  real eta;
+  real&lt;lower=-1, upper=1&gt; phi;
+}
+transformed parameters {
+  vector[T] mu;
+  vector[T] nu;
+
+  mu[1] = y[1] + sigma_gamma * gamma[1];
+  nu[1] = zeta[1];
+  for (t in 2:T) {
+    mu[t] = mu[t-1] + nu[t-1] + sigma_gamma * gamma[t];
+    nu[t] = eta + phi * (nu[t-1] - eta) + sigma_zeta * zeta[t];
+  }
+}
+model {
+  // likelihood
+  y ~ normal(mu, sigma_y);
+
+  // priors
+  sigma_y ~ exponential(1 / sd_y);
+  gamma ~ normal(0, 1);
+  sigma_gamma ~ gamma(2, 1 / sd_y);
+  zeta ~ normal(0, 1);
+  sigma_zeta ~ gamma(2, 1 / sd_y);
+  eta ~ student_t(3, 0, sd_y / sd_x);
+  phi ~ normal(0, 0.5);
+}
+generated quantities {
+  vector[T] y_pred;
+  for (t in 1:T)
+    y_pred[t] = normal_rng(mu[t], sigma_y);
+}</code></pre>
+<p>In order to fit this model to the yearly variation in the storm season, we need to compile the above Stan program.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>stmod <span class="op">=</span> pystan.StanModel(model_code<span class="op">=</span>local_linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>INFO:pystan:COMPILING THE C++ CODE FOR MODEL anon_model_c5a67a1a28bbc98cedc1cecc2429214e NOW.</code></pre>
+<section id="model-priors" class="level4">
+<h4 class="anchored" data-anchor-id="model-priors">Model Priors</h4>
+<p>The semilocal linear trend model above is fit as a Bayesian model, hence there are priors are on all parameters. An effort has been made such that all priors are weakly informative. We tried to follow a combination of the <a href="https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations">guidelines established by the Stan community</a> and the default <a href="https://cran.r-project.org/web/packages/rstanarm/vignettes/priors.html">priors for rstanarm</a> [Stan-Development-Team:2016].</p>
+<p>Specifically, the parameters <span class="math inline">\(\sigma\_y, \sigma\_{\gamma}, \sigma\_{\zeta}, \eta\)</span>, and <span class="math inline">\(\phi\)</span> have priors. Let <span class="math inline">\(y = (y_1, \ldots, y_T)'\)</span> denote the observations of interest and <span class="math inline">\(x\)</span> be the x-axis values along which the observations <span class="math inline">\(y\)</span> are observed.</p>
+<p><span class="math display">\[
+\begin{align}
+\sigma\_y &amp; \sim \text{Exponential}(1 / \text{sd}(y) ) \newline
+\sigma\_{\gamma} &amp; \sim \Gamma(2, 1 / \text{sd}(y) ) \newline
+\sigma\_{\zeta} &amp; \sim \Gamma(2, 1 / \text{sd}(y) ) \newline
+\eta &amp; \sim \mathbb{t}\_3(0, \text{sd}(y) / \text{sd}(x) ) \newline
+\phi &amp; \sim \mathbb{N}(0, 0.5)
+\end{align}
+\]</span></p>
+<p>The prior on <span class="math inline">\(\sigma_y\)</span> attempts to match the scale of the standard deviation of the observations <span class="math inline">\(y\)</span> by scaling an <span class="math inline">\(\text{Exponential(1)}\)</span> distribution appropriately. The scale parameters of <span class="math inline">\(\gamma\)</span> and <span class="math inline">\(\zeta\)</span> are given boundary avoiding priors and are scaled the same as <span class="math inline">\(\sigma_y\)</span>. The prior on <span class="math inline">\(\eta\)</span> is treated as a regression coefficient in a multiple regression model and thus has a t-distribution on it with degrees of freedom that allow for as wide a distribution as possible with a finite variance. Since <span class="math inline">\(\eta\)</span> is a slope parameter it is given the ratio of standard deviations of <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> to match the scale of a simple linear regression slope of <span class="math inline">\(y\)</span> on <span class="math inline">\(x\)</span>. The prior on <span class="math inline">\(\phi\)</span> attempts to weakly inform <span class="math inline">\(\phi\)</span> towards 0 with a standard deviation of 0.5. This leaves room for the data to insist upon a posterior distribution on <span class="math inline">\(\phi\)</span> to be near the extremes <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span>.</p>
+<p>The above model is fit with Stan, and random samples from the joint posterior distribution over the model parameters are extracted. We next evaluate the fit of the model and discuss the interpretation of the model in the context of the data.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sdata <span class="op">=</span> {                                                                            </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'T'</span>: sdf.shape[<span class="dv">0</span>], </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'x'</span>: np.arange(sdf.shape[<span class="dv">0</span>]),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'y'</span>: sdf[<span class="st">'mad'</span>].values.ravel()</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>stfit <span class="op">=</span> stmod.sampling(data<span class="op">=</span>sdata,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>                      control<span class="op">=</span>{<span class="st">'adapt_delta'</span>: <span class="fl">.99</span>})                                                                                                                                    </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>posterior <span class="op">=</span> stfit.extract()  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>/Users/ez/py3/lib/python3.6/site-packages/pystan/misc.py:399: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  elif np.issubdtype(np.asarray(v).dtype, float):</code></pre>
+<p>Stan models, like many other sophisticated, statistical models, are susceptible to fitting problems. The interested reader may refer to Section 34 of the <a href="http://mc-stan.org/users/documentation/index.html">Stan reference manual</a> for further details. For now, the checks below help assure us that this model applied to these data offer little to be concerned about.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>stan_utility.check_treedepth(stfit)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>stan_utility.check_energy(stfit)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>stan_utility.check_div(stfit)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>stan_utility.check_rhat(stfit)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>stan_utility.check_n_eff(stfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>0 of 4000 iterations saturated the maximum tree depth of 10 (0.0%)
+E-BFMI indicated no pathological behavior
+0.0 of 4000 iterations ended with a divergence (0.0%)
+Rhat looks reasonable for all parameters
+n_eff / iter looks reasonable for all parameters</code></pre>
+<p>The plot below superimposes our fitted model over the MAD estimates of the yearly variation of the empirical storm season.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>ax.cla()                                                                         </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>bp.curve(sdf[<span class="st">'year'</span>], sdf[<span class="st">'mad'</span>], alpha<span class="op">=</span><span class="fl">0.5</span>)                                                   </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>bp.curve(sdf[<span class="st">'year'</span>], posterior[<span class="st">'y_pred'</span>].mean(<span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:red'</span>)                  </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'MAD'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)                                                              </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'MAD of Storm Season by Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="..\post/stormevents_files/stormevents_47_0.png" class="img-fluid"></p>
+<p>The variable <span class="math inline">\(\eta\)</span> defines the long run slope of the variation of the MAD estimates. The point estimate of this model is similar to the point estimate from simple linear regression. Here, however, we have an accurate estimate of the variation of the long run slope.</p>
+<p>The median of the posterior distrbution of the long run slope, <span class="math inline">\(\eta\)</span>, from the semilocal linear trend model is <span class="math inline">\(.03\)</span>. Below, <span class="math inline">\(80\)</span>% and <span class="math inline">\(95\)</span>% credible intervals provide estimates of error of <span class="math inline">\(\eta\)</span>. The density below, with <span class="math inline">\(2.5, 10, 50, 90\)</span>, and <span class="math inline">\(97.5\)</span> percentiles drawn as short, blue ticks, depicts the posterior distribution of <span class="math inline">\(\eta\)</span>.</p>
+<p>We find evidence of a slight postive slope in MAD estimates across time. The semilocal linear trend model shows that there is more noise in the estimate of slope than does simple linear regression. With such high uncertainty, there is little evidence that the variation in the empirical storm season is getting significantly longer.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>eta_percentiles <span class="op">=</span> np.percentile(posterior[<span class="st">'eta'</span>], [<span class="fl">2.5</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">90</span>, <span class="fl">97.5</span>])</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear regression slope estimate: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(reg.params[<span class="dv">1</span>]))</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eta_percentiles)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>ax.cla()  </span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>bp.density(posterior[<span class="st">'eta'</span>])</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>bp.rug(eta_percentiles)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Posterior Distribution of $\eta$'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$\eta$'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>Linear regression slope estimate: -0.006597090749461623
+[-0.58850735 -0.33643296  0.0261598   0.35216475  0.58740378]</code></pre>
+<p><img src="..\post/stormevents_files/stormevents_49_1.png" class="img-fluid"></p>
+<p>In short, we have some evidence that the variation of the empirical storm season is not changing in time.</p>
+<p>Nonetheless, there are other ways to address the idea of Dr.&nbsp;Hassenzahl’s question. Next, we investigate whether or not the proportion of storms occuring outside of the official storm season is changing in time.</p>
+</section>
+</section>
+</section>
+<section id="is-the-annual-percentage-of-storms-outside-official-storm-season-changing" class="level2">
+<h2 class="anchored" data-anchor-id="is-the-annual-percentage-of-storms-outside-official-storm-season-changing">Is the Annual percentage of storms outside official storm season changing?</h2>
+<p>The official storm season is between June 01 and November 30. In some years, all the storms form within the official storm season. In other years, there are a few storms that form outside the official storm season. Next, we consider the yearly percentage of storms that form outside of the official storm season. This percentage is calculated for each year as follows. Divide the number of storms that form outside the official storm season in a given year by the number of named storms that formed in that year and then multiply by 100. If this yearly percentage were to trend up or down over time, we might believe that the variation of the empirical storm season were changing.</p>
+<p>First, we calculate the percentage of storms forming outside of the official storm season for each year.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> outside_SS(df):</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> df[<span class="st">'year'</span>].values[<span class="dv">0</span>]</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    early <span class="op">=</span> np.<span class="bu">sum</span>(df[<span class="st">'date'</span>] <span class="op">&lt;</span> datetime.datetime(y, <span class="dv">6</span>, <span class="dv">1</span>))</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    late <span class="op">=</span> np.<span class="bu">sum</span>(df[<span class="st">'date'</span>] <span class="op">&gt;</span> datetime.datetime(y, <span class="dv">10</span>, <span class="dv">30</span>))</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">100</span> <span class="op">*</span> (early <span class="op">+</span> late) <span class="op">/</span> df[<span class="st">'year'</span>].shape[<span class="dv">0</span>]</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>sdf[<span class="st">'prop'</span>] <span class="op">=</span> df.groupby(<span class="st">'year'</span>, as_index<span class="op">=</span><span class="va">False</span>).<span class="bu">apply</span>(outside_SS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Plotting these percentages over time shows that there are plenty of years where 0 storms formed outside of the official storm season. In no years were all the storms outside of the official storm season.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> sm.OLS(sdf[<span class="st">'prop'</span>], sm.tools.add_constant(sdf[<span class="st">'year'</span>])).fit()</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>ax.cla()</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>bp.curve(sdf[<span class="st">'year'</span>], sdf[<span class="st">'prop'</span>])</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>bp.line(sdf[<span class="st">'year'</span>], reg.fittedvalues, color<span class="op">=</span><span class="st">'tab:red'</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Percentage'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Percentage of Storms Outside of Official Storm Season by Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="..\post/stormevents_files/stormevents_55_0.png" class="img-fluid"></p>
+<p>We analyze these percentages using the same semilocal linear trend model as above. If the slope parameter <span class="math inline">\(\eta\)</span> is significantly non-zero, we’ll have found some evidence in a changing proportion of storms occuring outside of the official storm season.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>sdata <span class="op">=</span> {                                                                            </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'T'</span>: sdf.shape[<span class="dv">0</span>], </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'x'</span>: np.arange(sdf.shape[<span class="dv">0</span>]),</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'y'</span>: sdf[<span class="st">'prop'</span>]</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>stfit <span class="op">=</span> stmod.sampling(data<span class="op">=</span>sdata,</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>                      control<span class="op">=</span>{<span class="st">'adapt_delta'</span>: <span class="fl">.99</span>}) </span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>posterior <span class="op">=</span> stfit.extract() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>/Users/ez/py3/lib/python3.6/site-packages/pystan/misc.py:399: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  elif np.issubdtype(np.asarray(v).dtype, float):</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>stan_utility.check_treedepth(stfit)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>stan_utility.check_energy(stfit)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>stan_utility.check_div(stfit)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>stan_utility.check_rhat(stfit)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>stan_utility.check_n_eff(stfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>0 of 4000 iterations saturated the maximum tree depth of 10 (0.0%)
+E-BFMI indicated no pathological behavior
+0.0 of 4000 iterations ended with a divergence (0.0%)
+Rhat looks reasonable for all parameters
+n_eff / iter looks reasonable for all parameters</code></pre>
+<p>The plot below displays the semilocal linear trend estimates of the percentages of storms that formed outside of the official storm season. The model estimates are drawn in red and are superimposed over the light blue observations. It appears to have a gentle positive slope.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>ax.cla()                                                                         </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>bp.curve(sdf[<span class="st">'year'</span>], sdf[<span class="st">'prop'</span>], alpha<span class="op">=</span><span class="fl">0.5</span>)                                                   </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>bp.curve(sdf[<span class="st">'year'</span>], posterior[<span class="st">'y_pred'</span>].mean(<span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:red'</span>)                  </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Percentage'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)                                                              </span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Percentage of Storms Outside of Official Storm Season by Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="..\post/stormevents_files/stormevents_60_0.png" class="img-fluid"></p>
+<p>The posterior distribution of <span class="math inline">\(\eta\)</span> appears below, alongside multiple percentiles. While the median of <span class="math inline">\(\eta\)</span> is positive, even the <span class="math inline">\(80\)</span>% credible interval includes 0. While I certainly don’t want to make a binary conclusion here, it appears that there is much noise in the estimate of the long term slope parameter <span class="math inline">\(\eta\)</span>.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>eta_percentiles <span class="op">=</span> np.percentile(posterior[<span class="st">'eta'</span>], [<span class="fl">2.5</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">90</span>, <span class="fl">97.5</span>])</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear regression slope estimate: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(reg.params[<span class="dv">1</span>]))</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eta_percentiles)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>ax.cla()  </span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>bp.density(posterior[<span class="st">'eta'</span>])</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>bp.rug(eta_percentiles)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$\eta$'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Posterior Distribution of $\eta$'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>Linear regression slope estimate: -0.0038128475204844752
+[-0.4140813  -0.22224445  0.02994714  0.28013784  0.44618868]</code></pre>
+<p><img src="..\post/stormevents_files/stormevents_62_1.png" class="img-fluid"></p>
+<p>It doesn’t appear that the percentage of storms occuring outside of the official storm season is changing over time.</p>
+<p>Last, we analyze the stationarity of the empirical storm season.</p>
+</section>
+<section id="is-the-distribution-of-the-empirical-storm-season-stationary" class="level2">
+<h2 class="anchored" data-anchor-id="is-the-distribution-of-the-empirical-storm-season-stationary">Is the Distribution of the Empirical Storm Season Stationary?</h2>
+<p>Consider the average density <a href="#average_density">histogram</a> above, where the empirical storm season was averaged over all the years for which we have data. Let’s refer to this histogram as the average storm season. If the empirical storm season was not changing over time, then this average storm season would represent the stationary distribution from which each year’s storm season was randomly drawn. If such a stationary storm season producing distribution exists, then no year’s storm season in our data set should be too different from the average storm season.</p>
+<p>To evaluate the stationarity of the storm season, we compute such a histogram for each year’s empirical storm season separately. For instance, consider the <a href="#2005_density">histogram of the storms from 2005</a>. Now imagine we overlayed the average storm season histogram with the histogram from the 2005 storm season. We calculate the maximal, absolute difference between these two histograms. This idea is most easily visualized with histograms, but in fact we do all the calculations with the empirical cumulative distribution functions of the empirical storm seasons. Intuitively, these ideas are similar. In fact, this is just the <a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test">Kolmogorov-Smirnov</a> (KS) statistic, for each year’s storm season relative to the average storm season.</p>
+<p>We walk through each step of the calculations involved. First, we calculate the average storm season.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>hist, bins <span class="op">=</span> np.histogram(df[<span class="st">'cnum_dates'</span>], </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>                          bins<span class="op">=</span>df[<span class="st">'cnum_dates'</span>].nunique(), density<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>cdf <span class="op">=</span> np.cumsum(hist)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>ecdf <span class="op">=</span> cdf<span class="op">/</span>cdf[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, we’ll replicate this calculation for each year in our data set.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> []</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year <span class="kw">in</span> np.nditer(df[<span class="st">'date'</span>].dt.year.unique()):</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    h, _ <span class="op">=</span> np.histogram(df[<span class="st">'cnum_dates'</span>][df[<span class="st">'date'</span>].dt.year <span class="op">==</span> year], </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>                        bins<span class="op">=</span>df[<span class="st">'cnum_dates'</span>].nunique(), density<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    bcdf <span class="op">=</span> np.cumsum(h)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    ks.append(np.<span class="bu">max</span>(np.<span class="bu">abs</span>(ecdf <span class="op">-</span> bcdf<span class="op">/</span>bcdf[<span class="op">-</span><span class="dv">1</span>])))</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>sdf[<span class="st">'KS'</span>] <span class="op">=</span> np.array(ks)<span class="op">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The plot below displays the year over year KS statistics. There appears to be a negative slope over time. We remind the reader that the yearly KS statistics appear in absolute value. Hence, a (possible) negative slope is not as indicative as the word negative connotes. Here, any slope, positive or negative, will simply suggest a non-stationary storm season.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> sm.OLS(sdf[<span class="st">'KS'</span>], sm.tools.add_constant(sdf[<span class="st">'year'</span>])).fit()</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>ax.cla()</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>bp.curve(sdf[<span class="st">'year'</span>], sdf[<span class="st">'KS'</span>], alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>bp.line(sdf[<span class="st">'year'</span>], reg.fittedvalues, color<span class="op">=</span><span class="st">'tab:red'</span>)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'KS'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'KS Statistics by Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="..\post/stormevents_files/stormevents_70_0.png" class="img-fluid"></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>sdata <span class="op">=</span> {                                                                            </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'T'</span>: sdf.shape[<span class="dv">0</span>], </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'x'</span>: np.arange(sdf.shape[<span class="dv">0</span>]),</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'y'</span>: sdf[<span class="st">'KS'</span>]</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>stfit <span class="op">=</span> stmod.sampling(data<span class="op">=</span>sdata, </span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>                       control<span class="op">=</span>{<span class="st">'adapt_delta'</span>: <span class="fl">.99</span>,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">'max_treedepth'</span>: <span class="dv">15</span>}) </span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>posterior <span class="op">=</span> stfit.extract()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>/Users/ez/py3/lib/python3.6/site-packages/pystan/misc.py:399: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  elif np.issubdtype(np.asarray(v).dtype, float):</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>stan_utility.check_treedepth(stfit, max_depth<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>stan_utility.check_energy(stfit)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>stan_utility.check_div(stfit)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>stan_utility.check_rhat(stfit)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>stan_utility.check_n_eff(stfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>0 of 4000 iterations saturated the maximum tree depth of 15 (0.0%)
+E-BFMI indicated no pathological behavior
+2.0 of 4000 iterations ended with a divergence (0.05%)
+  Try running with larger adapt_delta to remove the divergences
+Rhat looks reasonable for all parameters
+n_eff / iter looks reasonable for all parameters</code></pre>
+<p>The semilocal linear trend model smoothes out the yearly KS statistics. Similar to linear regression, there appears to be a negative slope.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>ax.cla()                                                                         </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>bp.curve(sdf[<span class="st">'year'</span>], sdf[<span class="st">'KS'</span>], alpha<span class="op">=</span><span class="fl">0.5</span>)                                                   </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>bp.curve(sdf[<span class="st">'year'</span>], posterior[<span class="st">'y_pred'</span>].mean(<span class="dv">0</span>), color<span class="op">=</span><span class="st">'tab:red'</span>)  </span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'KS'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)                                                              </span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'KS Statistics by Year'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="..\post/stormevents_files/stormevents_74_0.png" class="img-fluid"></p>
+<p>The posterior distribution of <span class="math inline">\(\eta\)</span> is noisy, despite the negative median value.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>eta_percentiles <span class="op">=</span> np.percentile(posterior[<span class="st">'eta'</span>], [<span class="fl">2.5</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">90</span>, <span class="fl">97.5</span>])</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear regression slope estimate: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(reg.params[<span class="dv">1</span>]))</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(eta_percentiles)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>ax.cla()  </span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>bp.density(posterior[<span class="st">'eta'</span>])</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>bp.rug(eta_percentiles)</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Posterior Distribution of $\eta$'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$\eta$'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>Linear regression slope estimate: -0.004147888339256261
+[-0.83684908 -0.50679053 -0.0118629   0.46288992  0.80493632]</code></pre>
+<p><img src="..\post/stormevents_files/stormevents_76_1.png" class="img-fluid"></p>
+<p>We find little evidence that the empirical storm season is non-stationary, since the posterior distribution of <span class="math inline">\(\eta\)</span> is so noisy about <span class="math inline">\(0\)</span>.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>This blog post analyzed the variation of the empirical storm season in multiple, novel ways. First, we considered the MAD estimates of the variation of the empirical storm season. Second, we analyzed the percentage of storms that occured outside of the official storm season. Neither of these analyses found evidence of significant changes in the variation of the empirical storm season.</p>
+<p>The last analysis considered the stationarity of the empirical storm season by investigating the slope of the yearly maximal discrepancy between the average storm season and each year’s storm season. Here, we calculated one KS statistic for each year in our data set. Unlike the first two analyses, the KS statistic will identify any changes in distribution, not just the variance. Yet, even with the yearly KS statistics, we still didn’t find any significant changes in the empirical storm season. Though not displayed, similar results hold for the storms in the Pacific Ocean. The analysis here is easily adapted to storms from the Pacific Ocean; in fact the starting data set includes storms from both oceans.</p>
+<p>A strong word of caution is in order. None of the work here said anything about the <a href="https://www.ncdc.noaa.gov/news/tropical-cyclone-%E2%80%9Cmaximum-intensity%E2%80%9D-shifting-toward-poles">intensity of storms</a>, nor the length of storms, nor the <a href="https://www.ncei.noaa.gov/news/tropical-cyclone-slowdown">speed of storms</a>, nor changes in anything that may influence storms [Karloski:2016]. In part, our focus on the variation of the empirical storm makes this analysis unique. However, as we largely didn’t discover any broad changes in the empirical storm season, we didn’t find much of interest. Which is to say, there may be a reason so many other people have focused their attention elsewhere; that’s where all the interesting things are happening.</p>
+</section>
+<section id="acknowledgments" class="level1">
+<h1>Acknowledgments</h1>
+<p>This blog post would not have happened without the great minds of Dave Hassenzahl, Ann Bykerk-Kauffman, and the Department of Geological and Environmental Sciences. Thanks goes out to Rachel Hensler, Robin Donatello, Kristen Kaczynski, Rachel Teasdale, and Cab Esposito for their helpful feedback. And of course, the communities of Python, Stan, and NOAA’s National Hurricane Center deserve much credit for their endless hard work.</p>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ul>
+<li>[Carpenter:2017] B. Carpenter, A. Gelman, M. D. Hoffman, D. Lee, B. Goodrich, M. Betancourt, M. Brubaker, J. Guo, P. Li, and A. Riddell. Stan: A probabilistic programming language. Journal of statistical software, 76(1), 2017. https://www.jstatsoft.org/article/view/v076i01</li>
+<li>[Durbin:2012] J. Durbin and S. J. Koopman. Time Series Analysis by State Space Methods. Oxford University Press, 2 edition, 2012.</li>
+<li>[Karloski:2016] J. M. Karloski and C. Evans. Seasonal influences upon and long-term trends in the length of the atlantic hurricane season. Journal of Climate, 29(1):273–292, 2016. https://journals.ametsoc.org/doi/abs/10.1175/JCLI-D-15-0324.1</li>
+<li>[Kim:2017] D. Kim, H.-S. Kim, D.-S. R. Park, and M.-S. Park. Variation of the tropical cyclone season start in the western north pacific. Journal of Climate, 30(9):3297–3302, 2017. https://journals.ametsoc.org/doi/full/10.1175/JCLI-D-16-0888.1</li>
+<li>[Kossin:2008] J. P. Kossin. Is the north atlantic hurricane season getting longer? Geophysical Research Letters, 35(23), 2008. https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2008GL036012</li>
+<li>[Landsea:2013] C. W. Landsea and J. L. Franklin. Atlantic hurricane database uncertainty and presentation of a new database format. Monthly Weather Review, 141(10):3576–3592, 2013. https://journals.ametsoc.org/doi/10.1175/MWR-D-12-00254.1</li>
+<li>[R-Core-Team:2018] R Core Team. R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing, Vienna, Austria, 2018. https://www.R-project.org</li>
+<li>[Stan-Development-Team:2016] Stan Development Team. rstanarm: Bayesian applied regression modeling via Stan., 2016. R package version 2.13.1. http://mc-stan.org/rstanarm/index.html</li>
+<li>[Scott:2018] S. L. Scott. bsts: Bayesian Structural Time Series, r package version 0.8.0 edition, 2018. https://CRAN.R-project.org/package=bsts</li>
+</ul>
+</section>
+<section id="licenses" class="level1">
+<h1>Licenses</h1>
+<ul>
+<li>Code: Copyright (2018) California State University, Chico. Released under the BSD 3-clause license. https://opensource.org/licenses/BSD-3-Clause</li>
+<li>Text: Copyright (2018) Edward A. Roualdes. Released under the the CC BY-NC 4.0 license. https://creativecommons.org/licenses/by-nc/4.0/legalcode</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
